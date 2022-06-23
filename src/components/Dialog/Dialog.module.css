@@ -7,16 +7,16 @@
 padding: 10px;
 }
 
-.users {
+.user {
 padding-top: 15px;
 }
 
-.users.active a {
+.user.active a {
 color: rgb(10, 20, 85);
 font-weight: bold;
 }
 
-.users a {
+.user a {
     text-decoration: none;
     color: black;
 }
