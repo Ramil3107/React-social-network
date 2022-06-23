@@ -1,2 +1,30 @@
+.dialogs {
+    display:grid;
+    grid-template-columns: 2fr 10fr;
+}
 
-  
+.dialogUsers {
+padding: 10px;
+}
+
+.users {
+padding-top: 15px;
+}
+
+.users.active a {
+color: rgb(10, 20, 85);
+font-weight: bold;
+}
+
+.users a {
+    text-decoration: none;
+    color: black;
+}
+
+.messages{
+padding: 10px;
+}
+
+.message {
+padding-top: 15px;
+}
