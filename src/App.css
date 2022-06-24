@@ -1,21 +1,26 @@
-.app-wrapper {
-  display: grid;
-  width: 1200px;
+.container{
+  width: 98%;
   margin: 0 auto;
-
-  grid-template-rows: 60px 1fr;
-  grid-template-columns: 2fr 10fr;
-
-  grid-template-areas:
-    "header header"
-    "nav content";
-
 }
 
-.app-wrapper-content {
-    grid-area: content;
-    background-color: rgb(255, 198, 232);
+.app-wrapper {
+  display: flex;
+  flex-wrap: wrap;
 }
 
+.item {
+box-sizing: border-box;
+}
 
+#content {
+  background-color: rgb(255, 198, 232);
+  width: 80%;
+}
 
+#header {
+  width: 100%;
+}
+
+#navbar{
+  width: 20%;
+}
