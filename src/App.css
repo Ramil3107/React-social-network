@@ -1,5 +1,6 @@
 .container{
   width: 98%;
+  height: 100%;
   margin: 0 auto;
 }
 
@@ -15,6 +16,7 @@ box-sizing: border-box;
 #content {
   background-color: rgb(255, 198, 232);
   width: 80%;
+  height: 100%;
 }
 
 #header {

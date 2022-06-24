@@ -6,7 +6,7 @@ const ProfileInfo = (props) => {
         <div className={s.profileInfo}>
 
             <div className={s.coverImage}>
-                <img src='https://images.ctfassets.net/hrltx12pl8hq/69FDo9oeiebEZtaKX7Iq2V/d55fe9c40ef50e33912a025d2ff51b19/cms-bg-img.jpg?fit=fill&w=840&h=150' />
+                <img src='https://i.pinimg.com/736x/64/cc/fa/64ccfa4a392b9f3e1c6004fcedd3a18c.jpg' />
             </div>
 
             <div className={s.userInfo}>avatar + dscrp</div>
