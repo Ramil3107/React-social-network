@@ -1,9 +1,11 @@
 .dialogs {
    display: flex;
+   padding-left: 15px;
+   padding-top: 15px;
 }
 
-.dialogUsers {
-padding: 10px;
+.dialog {
+
 }
 
 .user {
@@ -21,7 +23,6 @@ font-weight: bold;
 }
 
 .messages{
-padding: 10px;
 padding-left: 100px;
 
 }
