@@ -23,9 +23,9 @@ const Message = (props) => {
 
 const Dialog = (props) => {
 
-    let dialogEl = props.dialogs.map(dialog => <DialogUser name={dialog.name} id={dialog.id} />)
+    let dialogEl = props.messages.dialogs.map(dialog => <DialogUser name={dialog.name} id={dialog.id} />)
 
-    let messageEl = props.messages.map(message => <Message message={message.message} id={message.id} />);
+    let messageEl = props.messages.messages.map(message => <Message message={message.message} id={message.id} />);
 
     return (
         <div className={s.dialogs}>
