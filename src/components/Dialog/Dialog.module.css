@@ -3,6 +3,7 @@
    padding-left: 15px;
    padding-top: 15px;
    padding-bottom: 25px;
+   min-height: 100vh;
 }
 
 .user {

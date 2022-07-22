@@ -23,5 +23,15 @@ let state = {
 
 }
 
+export let addPost = function (newPost) {
+    
+    let newPostObject = {
+        id:5,
+        message:newPost,
+        likecounter:8
+    }
+
+    state.profile.posts.push(newPostObject)
+}
 
 export default state
