@@ -22,11 +22,11 @@ const MyPosts = (props) => {
 
             <div className={s.newPost}>
                 <div className={s.textArea}>
-                    <textarea ref={addPostText}></textarea>
+                    <textarea ref={addPostText} />
                 </div>
 
                 <div className={s.button}>
-                    <button ref={addPostBtn} onClick={addPost}>Add Post</button>
+                    <button ref={addPostBtn} onClick={addPost}>Add Post </button>
                 </div>
             </div>
 
