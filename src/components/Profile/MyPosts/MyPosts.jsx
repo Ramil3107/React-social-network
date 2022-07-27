@@ -6,12 +6,19 @@ import Post from "./Post/Post"
 const MyPosts = (props) => {
 
     let addPostBtn = React.createRef()
-    let addPostText = React.createRef()
+    let textArea = React.createRef()
 
 
     let addPost = () => {
-         props.addPost(addPostText.current.value)
+         props.addPost()
     }
+
+
+    let onPostChange = () => {
+        let text = textArea.current.value
+        props.updateNewPostText(text)
+    }
+
     
 
     let postEl = props.posts.map(post => <Post message={post.message} likecounter={post.likecounter} />)
@@ -22,11 +29,11 @@ const MyPosts = (props) => {
 
             <div className={s.newPost}>
                 <div className={s.textArea}>
-                    <textarea ref={addPostText} />
+                    <textarea ref={textArea} onChange={onPostChange} value={props.updatedNewPostText} />
                 </div>
 
                 <div className={s.button}>
-                    <button ref={addPostBtn} onClick={addPost}>Add Post </button>
+                    <button ref={addPostBtn} onClick={addPost}  >Add Post </button>
                 </div>
             </div>
 
