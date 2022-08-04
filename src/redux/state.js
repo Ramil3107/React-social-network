@@ -24,32 +24,53 @@ let store = {
         }
 
     },
-    getState () {
-        return this._state
-    },
-    addPost (){
-
-        let newPostObject = {
-            id: 5,
-            message: this._state.profile.updatedNewPostText,
-            likecounter: 8
-        }
-    
-        this._state.profile.posts.push(newPostObject)
-        this._state.profile.updatedNewPostText = ""
-        this.callSubscriber(this._state)
-    
-    },
-    callSubscriber (){
+    _callSubscriber() {
         console.log("state changed")
     },
-    updateNewPostText (newText) {
 
-        this._state.profile.updatedNewPostText = newText
-        this.callSubscriber(this._state)
+
+    // addPost() {
+
+    //     let newPostObject = {
+    //         id: 5,
+    //         message: this._state.profile.updatedNewPostText,
+    //         likecounter: 8
+    //     }
+
+    //     this._state.profile.posts.push(newPostObject)
+    //     this._state.profile.updatedNewPostText = ""
+    //     this._callSubscriber(this._state)
+
+    // },
+    // updateNewPostText(newText) {
+
+    //     this._state.profile.updatedNewPostText = newText
+    //     this._callSubscriber(this._state)
+    // },
+
+    dispatch(action) {
+        if (action.type === "ADD-POST") {
+            let newPostObject = {
+                id: 5,
+                message: this._state.profile.updatedNewPostText,
+                likecounter: 8
+            }
+
+            this._state.profile.posts.push(newPostObject)
+            this._state.profile.updatedNewPostText = ""
+            this._callSubscriber(this._state)
+        } else if (action.type === "UPDATE-NEW-POST-TEXT") {
+            this._state.profile.updatedNewPostText = action.newText
+            this._callSubscriber(this._state)
+        }
     },
-    subscribe (observer){
-        this.callSubscriber = observer
+
+
+    getState() {
+        return this._state
+    },
+    subscribe(observer) {
+        this._callSubscriber = observer
     }
 
 }
