@@ -1,10 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { addMessageActionCreator, updateNewMessageTextActionCreator } from "../../redux/state";
 import s from "./Dialog.module.css";
 
 
 
-const DialogUser = ({name,id}) => {
+const DialogUser = ({ name, id }) => {
 
     let path = "/dialogs/" + id;
 
@@ -15,10 +16,10 @@ const DialogUser = ({name,id}) => {
     )
 }
 
-const Message = (props) => {
+const Message = ({ message }) => {
     return (
         <div className={s.message}>
-            {props.message}
+            {message}
         </div>
     )
 }
@@ -29,9 +30,16 @@ const Dialog = (props) => {
     let messageTextArea = React.createRef()
 
 
-    function alertTextAreaText () {
-        alert (messageTextArea.current.value)
+    let onMessageChange = (e) => {
+        let text = e.target.value
+        props.dispatch(updateNewMessageTextActionCreator(text))
     }
+
+    let addMessage = () => {
+        props.dispatch(addMessageActionCreator())
+    }
+
+
 
     let dialogEl = props.messages.dialogs.map(dialog => <DialogUser name={dialog.name} id={dialog.id} />)
 
@@ -49,8 +57,15 @@ const Dialog = (props) => {
             </div>
 
             <div className={s.textarea}>
-                <textarea  ref={messageTextArea} cols="30" rows="5"></textarea>
-                <button onClick={alertTextAreaText}>Send</button>
+
+                <textarea
+                    
+                    onChange={onMessageChange}
+                    value={props.messages.updatedNewMessageText}
+                    cols="30"
+                    rows="5" />
+
+                <button onClick={addMessage}>Send</button>
             </div>
         </div>
     )

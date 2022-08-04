@@ -27,11 +27,12 @@ const App = (props) => {
 
               <Route path="/profile" element={<Profile
                 profile={props.state.profile}
-                dispatch={props.dispatch} />} />
+                dispatch={props.dispatch}/>} />
 
 
               <Route path="/dialog" element={<Dialog
-                messages={props.state.messages} />} />
+                messages={props.state.messages}
+                dispatch={props.dispatch} />} />
 
             </Routes>
           </div>
