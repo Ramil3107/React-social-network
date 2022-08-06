@@ -1,5 +1,4 @@
 import React from "react";
-import { addPostActionCreator, updateNewPostTextActionCreator } from "../../../redux/profileReducer";
 import s from "./MyPosts.module.css"
 import Post from "./Post/Post"
 
@@ -7,14 +6,14 @@ import Post from "./Post/Post"
 const MyPosts = (props) => {
 
 
-    let addPost = () => {
-        props.dispatch(addPostActionCreator())
+    let onAddPost = () => {
+        props.addPost()
     }
 
 
     let onPostChange = (e) => {
         let text = e.target.value
-        props.dispatch(updateNewPostTextActionCreator(text))
+        props.postChange(text)
     }
 
 
@@ -31,7 +30,7 @@ const MyPosts = (props) => {
                 </div>
 
                 <div className={s.button}>
-                    <button onClick={addPost}  >Add Post </button>
+                    <button onClick={onAddPost}  >Add Post </button>
                 </div>
             </div>
 

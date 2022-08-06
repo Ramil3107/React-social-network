@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { addMessageActionCreator, updateNewMessageTextActionCreator } from "../../redux/dialogReducer";
 import s from "./Dialog.module.css";
 
 
@@ -27,23 +26,22 @@ const Message = ({ message }) => {
 
 const Dialog = (props) => {
 
-    let messageTextArea = React.createRef()
-
+let messages = props.messages
 
     let onMessageChange = (e) => {
         let text = e.target.value
-        props.dispatch(updateNewMessageTextActionCreator(text))
+        props.messageChange(text)
     }
 
-    let addMessage = () => {
-        props.dispatch(addMessageActionCreator())
+    let onAddMessage = () => {
+        props.addMessage()
     }
 
 
 
-    let dialogEl = props.messages.dialogs.map(dialog => <DialogUser name={dialog.name} id={dialog.id} />)
+    let dialogEl = messages.dialogs.map(dialog => <DialogUser name={dialog.name} id={dialog.id}  />)
 
-    let messageEl = props.messages.messages.map(message => <Message message={message.message} id={message.id} />);
+    let messageEl = messages.messages.map(message => <Message message={message.message} id={message.id} />);
 
     return (
         <div className={s.dialogs}>
@@ -61,11 +59,11 @@ const Dialog = (props) => {
                 <textarea
                     
                     onChange={onMessageChange}
-                    value={props.messages.updatedNewMessageText}
+                    value={messages.updatedNewMessageText}
                     cols="30"
                     rows="5" />
 
-                <button onClick={addMessage}>Send</button>
+                <button onClick={onAddMessage}>Send</button>
             </div>
         </div>
     )

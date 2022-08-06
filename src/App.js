@@ -1,10 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
 import Header from './components/Header/Header';
 import Navigation from './components/Navigation/Navigation';
 import Profile from './components/Profile/Profile';
-import Dialog from './components/Dialog/Dialog';
 import { BrowserRouter, Route, Routes, } from 'react-router-dom';
+import DialogContainer from './components/Dialog/DialogContainer';
 
 
 
@@ -25,14 +24,10 @@ const App = (props) => {
           <div id='content' className='item'>
             <Routes>
 
-              <Route path="/profile" element={<Profile
-                profile={props.state.profile}
-                dispatch={props.dispatch}/>} />
+              <Route path="/profile" element={<Profile />} />
 
 
-              <Route path="/dialog" element={<Dialog
-                messages={props.state.messages}
-                dispatch={props.dispatch} />} />
+              <Route path="/dialog" element={<DialogContainer />} />
 
             </Routes>
           </div>
