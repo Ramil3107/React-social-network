@@ -11,6 +11,9 @@ const Navigation = (props) => {
             <NavLink to="/dialog" className={({ isActive }) => (isActive ? [s.active] : [])}>Messages</NavLink>
         </div>
         <div className={s.item}>
+            <NavLink to="/users" className={({ isActive }) => (isActive ? [s.active] : [])}>Find Users</NavLink>
+        </div>
+        <div className={s.item}>
             <NavLink to="/news" className={({ isActive }) => (isActive ? [s.active] : [])}>News</NavLink>
         </div>
         <div className={s.item}>

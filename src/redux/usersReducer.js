@@ -1,37 +1,10 @@
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
+const SET_USERS = "SET_USERS"
 
 
 let initialState = {
-    users: [
-        {
-            id: 1,
-            avatarUrl: "https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg",
-            isFollow:true,
-            fullName: "Abbasov R.",
-            status: "I'm looking for a job now",
-            country: "Ukraine",
-            city: "Kharkiv"
-        },
-        {
-            id: 2,
-            avatarUrl: "https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg",
-            isFollow:true,
-            fullName: "Yevsyukova A.",
-            status: "Designer/Traveler",
-            country: "Ukraine",
-            city: "Kharkiv"
-        },
-        {
-            id: 3,
-            avatarUrl: "https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg",
-            isFollow:true,
-            fullName: "Velichko R.",
-            status: "I'm retard",
-            country: "Ukraine",
-            city: "Kharkiv"
-        },
-    ]
+    users: []
 }
 
 let usersReducer = (state = initialState, action) => {
@@ -39,23 +12,35 @@ let usersReducer = (state = initialState, action) => {
     switch (action.type) {
         case FOLLOW:
             return {
-                ...state, users:state.users.map(user => {
-                   if(user.id === action.userId) {
-                        return user.isFollow = true
+                ...state, users: state.users.map(user => {
+                    if (user.id === action.userId) {
+                        user.followed = true
+                        return user
                     } else {
                         return user
                     }
+
                 })
             }
         case UNFOLLOW:
             return {
-                ...state, users:state.users.map(user => {
-                   if(user.id === action.userId) {
-                        return user.isFollow = true
+                ...state, users: state.users.map(user => {
+                    if (user.id === action.userId) {
+                        user.followed = false
+                        return user
                     } else {
                         return user
                     }
+
                 })
+            }
+        case SET_USERS:
+            return {
+                ...state,
+                users: [
+                    ...state.users,
+                    ...action.users
+                ]
             }
         default:
             return state
@@ -67,5 +52,6 @@ let usersReducer = (state = initialState, action) => {
 
 export const followActionCreator = (userId) => ({ type: FOLLOW, userId: userId })
 export const unfollowActionCreator = (userId) => ({ type: UNFOLLOW, userId: userId })
+export const setUsersActionCreator = (users) => ({ type: SET_USERS, users: users })
 
 export default usersReducer

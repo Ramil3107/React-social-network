@@ -4,6 +4,7 @@ import Navigation from './components/Navigation/Navigation';
 import Profile from './components/Profile/Profile';
 import { BrowserRouter, Route, Routes, } from 'react-router-dom';
 import DialogContainer from './components/Dialog/DialogContainer';
+import FindUsersContainer from './components/FindUsers/FindUsersContainer';
 
 
 
@@ -28,6 +29,8 @@ const App = (props) => {
 
 
               <Route path="/dialog" element={<DialogContainer />} />
+              
+              <Route path="/users" element={<FindUsersContainer />} />
 
             </Routes>
           </div>
