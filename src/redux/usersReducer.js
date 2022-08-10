@@ -3,13 +3,15 @@ const UNFOLLOW = "UNFOLLOW"
 const SET_USERS = "SET_USERS"
 const PAGE_SELECT = "PAGE_SELECT"
 const SET_TOTAL_COUNT = "SET_TOTAL_COUNT"
+const SET_FIND_USER_NAME = "SET_FIND_USER_NAME"
 
 
 let initialState = {
     users: [],
     usersTotalCount:0,
     pageUsersLimit: 25,
-    currentPage:1
+    currentPage:1,
+    findUserName:"hui"
 }
 
 let usersReducer = (state = initialState, action) => {
@@ -54,6 +56,11 @@ let usersReducer = (state = initialState, action) => {
                 ...state,
                 usersTotalCount:action.count
             }
+        case SET_FIND_USER_NAME:
+            return {
+                ...state,
+                findUserName:action.name
+            }
         default:
             return state
     }
@@ -67,5 +74,6 @@ export const unfollowActionCreator = (userId) => ({ type: UNFOLLOW, userId: user
 export const setUsersActionCreator = (users) => ({ type: SET_USERS, users: users })
 export const pageSelectActionCreator = (page) => ({ type: PAGE_SELECT, page: page })
 export const setTotalCountActionCreator = (count) => ({ type: SET_TOTAL_COUNT, count: count })
+export const setFindUserNameActionCreator = (name) => ({ type: SET_FIND_USER_NAME, name: name })
 
 export default usersReducer

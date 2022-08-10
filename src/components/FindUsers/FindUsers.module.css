@@ -6,6 +6,10 @@
     cursor: pointer;
 }
 
+.findUser {
+    margin: 15px;
+}
+
 .selectedPage {
     color: black;
     font-weight: bold;

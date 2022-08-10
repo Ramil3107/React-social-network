@@ -31,6 +31,18 @@ class FindUsers extends React.Component {
                 })
         }
 
+        let onFindUserChanged = (e) => {
+            let text = e.target.value
+            this.props.setFindUserName(text)
+        }
+
+       let findUser = () => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?term=${this.props.findUserName}`)
+        .then(response => {
+            this.props.setUsers(response.data.items)
+        })
+       }
+        
         return <div>
             <div className={s.pages}>
                 {
@@ -41,6 +53,15 @@ class FindUsers extends React.Component {
                         {p}
                     </span>)
                 }
+            </div>
+
+            <div className={s.findUser}>
+                <input
+                    value={this.props.findUserName}
+                    onChange={onFindUserChanged}
+                    type="text" />
+
+                <button onClick={findUser}>Find</button>
             </div>
 
             {
