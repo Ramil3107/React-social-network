@@ -36,13 +36,16 @@ class FindUsers extends React.Component {
             this.props.setFindUserName(text)
         }
 
-       let findUser = () => {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?term=${this.props.findUserName}`)
-        .then(response => {
-            this.props.setUsers(response.data.items)
-        })
-       }
-        
+        let findUser = () => {
+            axios.get(`https://social-network.samuraijs.com/api/1.0/users?term=${this.props.findUserName}`)
+                .then(response => {
+                    this.props.setUsers(response.data.items)
+                    if(this.props.findUserName === "") {
+                        this.props.setPage(1)
+                    }
+                })
+        }
+
         return <div>
             <div className={s.pages}>
                 {
