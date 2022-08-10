@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { followActionCreator, setUsersActionCreator, unfollowActionCreator } from "../../redux/usersReducer";
+import { followActionCreator, pageSelectActionCreator, setTotalCountActionCreator, setUsersActionCreator, unfollowActionCreator } from "../../redux/usersReducer";
 import FindUsers from "./FindUsers";
 
 
@@ -7,7 +7,10 @@ import FindUsers from "./FindUsers";
 let mapStateToProps = (state) => {
     return (
         {
-            users: state.findUsers.users
+            users: state.findUsers.users,
+            usersTotalCount: state.findUsers.usersTotalCount,
+            pageUsersLimit: state.findUsers.pageUsersLimit,
+            currentPage: state.findUsers.currentPage,
         }
     )
 }
@@ -21,9 +24,15 @@ let mapDispatchToProps = (dispatch) => {
             onUnFollow: (userId) => {
                 dispatch(unfollowActionCreator(userId))
             },
-            SetUsers: (users) => {
+            setUsers: (users) => {
                 dispatch(setUsersActionCreator(users))
-            }
+            },
+            setPage: (page) => {
+                dispatch(pageSelectActionCreator(page))
+            },
+            setTotalCount: (count) => {
+                dispatch(setTotalCountActionCreator(count))
+            },
         }
     )
 }

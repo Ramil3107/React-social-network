@@ -1,3 +1,21 @@
+.pages {
+    margin: 5px;
+}
+
+.page {
+    cursor: pointer;
+}
+
+.selectedPage {
+    color: black;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+span {
+    margin: 5px;
+}
+
 .item {
     display: flex;
     align-items: center;
@@ -16,9 +34,3 @@
     width: 50px;
     border-radius: 50%;
 }
-
-.pin {
-    background-color: green;
-    border-radius: 50%;
-}
-
