@@ -9,9 +9,9 @@ const SET_FIND_USER_NAME = "SET_FIND_USER_NAME"
 let initialState = {
     users: [],
     usersTotalCount:0,
-    pageUsersLimit: 25,
+    pageUsersLimit: 5,
     currentPage:1,
-    findUserName:"hui"
+    findUserName:""
 }
 
 let usersReducer = (state = initialState, action) => {

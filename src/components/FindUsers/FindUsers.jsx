@@ -1,49 +1,13 @@
 import React from "react";
 import s from "./FindUsers.module.css"
-import * as axios from "axios"
 import avatarDefault from "../../assets/images/defaultAvatar.jpeg"
 
-class FindUsers extends React.Component {
+const FindUsers = (props) => {
 
-    componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageUsersLimit}`)
-            .then(response => {
-                this.props.setUsers(response.data.items)
-                this.props.setTotalCount(response.data.totalCount)
-            })
-    }
-
-
-    render() {
-
-        let pagesCount = Math.ceil(this.props.usersTotalCount / this.props.pageUsersLimit)
+        let pagesCount = Math.ceil(props.usersTotalCount / props.pageUsersLimit)
         let pages = []
         for (let i = 1; i <= pagesCount && i <= 30; i++) {
             pages.push(i)
-        }
-
-        let onPageChanged = (page) => {
-            this.props.setPage(page)
-
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageUsersLimit}`)
-                .then(response => {
-                    this.props.setUsers(response.data.items)
-                })
-        }
-
-        let onFindUserChanged = (e) => {
-            let text = e.target.value
-            this.props.setFindUserName(text)
-        }
-
-        let findUser = () => {
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?term=${this.props.findUserName}`)
-                .then(response => {
-                    this.props.setUsers(response.data.items)
-                    if(this.props.findUserName === "") {
-                        this.props.setPage(1)
-                    }
-                })
         }
 
         return <div>
@@ -51,8 +15,8 @@ class FindUsers extends React.Component {
                 {
                     pages.map(p => <span
                         key={p}
-                        onClick={() => onPageChanged(p)}
-                        className={this.props.currentPage === p ? s.selectedPage : s.page}>
+                        onClick={() => props.onPageChanged(p)}
+                        className={props.currentPage === p ? s.selectedPage : s.page}>
                         {p}
                     </span>)
                 }
@@ -60,15 +24,16 @@ class FindUsers extends React.Component {
 
             <div className={s.findUser}>
                 <input
-                    value={this.props.findUserName}
-                    onChange={onFindUserChanged}
+                    placeholder="find user..."
+                    value={props.findUserName}
+                    onChange={props.onFindUserChanged}
                     type="text" />
 
-                <button onClick={findUser}>Find</button>
+                <button onClick={props.findUser}>Find</button>
             </div>
 
             {
-                this.props.users.map(user => <div className={s.item} key={user.id}>
+                props.users.map(user => <div className={s.item} key={user.id}>
 
                     <span className={s.user}>
                         <div>
@@ -76,8 +41,8 @@ class FindUsers extends React.Component {
                         </div>
                         <div>
                             {user.followed ?
-                                <button onClick={() => this.props.onUnFollow(user.id)}>Unfollow</button> :
-                                <button onClick={() => this.props.onFollow(user.id)}>Follow</button>}
+                                <button onClick={() => props.onUnFollow(user.id)}>Unfollow</button> :
+                                <button onClick={() => props.onFollow(user.id)}>Follow</button>}
                         </div>
                     </span>
 
@@ -95,6 +60,5 @@ class FindUsers extends React.Component {
                 )}
         </div>
     }
-}
 
 export default FindUsers
