@@ -4,6 +4,7 @@ const SET_USERS = "SET_USERS"
 const PAGE_SELECT = "PAGE_SELECT"
 const SET_TOTAL_COUNT = "SET_TOTAL_COUNT"
 const SET_FIND_USER_NAME = "SET_FIND_USER_NAME"
+const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING"
 
 
 let initialState = {
@@ -11,7 +12,8 @@ let initialState = {
     usersTotalCount:0,
     pageUsersLimit: 5,
     currentPage:1,
-    findUserName:""
+    findUserName:"",
+    isFetching:true
 }
 
 let usersReducer = (state = initialState, action) => {
@@ -61,6 +63,11 @@ let usersReducer = (state = initialState, action) => {
                 ...state,
                 findUserName:action.name
             }
+        case TOGGLE_IS_FETCHING:
+            return {
+                ...state,
+                isFetching:action.active
+            }
         default:
             return state
     }
@@ -69,11 +76,12 @@ let usersReducer = (state = initialState, action) => {
 }
 
 
-export const followActionCreator = (userId) => ({ type: FOLLOW, userId: userId })
-export const unfollowActionCreator = (userId) => ({ type: UNFOLLOW, userId: userId })
-export const setUsersActionCreator = (users) => ({ type: SET_USERS, users: users })
-export const pageSelectActionCreator = (page) => ({ type: PAGE_SELECT, page: page })
-export const setTotalCountActionCreator = (count) => ({ type: SET_TOTAL_COUNT, count: count })
-export const setFindUserNameActionCreator = (name) => ({ type: SET_FIND_USER_NAME, name: name })
+export const follow = (userId) => ({ type: FOLLOW, userId: userId })
+export const unfollow = (userId) => ({ type: UNFOLLOW, userId: userId })
+export const setUsers = (users) => ({ type: SET_USERS, users: users })
+export const setPage = (page) => ({ type: PAGE_SELECT, page: page })
+export const setTotalCount = (count) => ({ type: SET_TOTAL_COUNT, count: count })
+export const setFindUserName = (name) => ({ type: SET_FIND_USER_NAME, name: name })
+export const toggleIsFetching = (boolean) => ({ type: TOGGLE_IS_FETCHING, active: boolean })
 
 export default usersReducer
