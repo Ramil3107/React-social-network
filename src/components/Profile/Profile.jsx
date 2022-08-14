@@ -8,7 +8,7 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer";
 const Profile = (props) => {
     return (
         <div className={s.content}>
-            <ProfileInfo />
+            <ProfileInfo userProfile={props.userProfile} isFetching={props.isFetching} />
             <MyPostsContainer/>
         </div>
     )

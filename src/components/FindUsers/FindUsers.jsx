@@ -2,6 +2,7 @@ import React from "react";
 import s from "./FindUsers.module.css"
 import avatarDefault from "../../assets/images/defaultAvatar.jpeg"
 import Preloader from "../common/Preloader/Preloader";
+import { NavLink } from "react-router-dom";
 
 const FindUsers = (props) => {
 
@@ -40,9 +41,11 @@ const FindUsers = (props) => {
                 props.users.map(user => <div className={s.item} key={user.id}>
 
                     <span className={s.user}>
+                        <NavLink to={"/profile/" + user.id}>
                         <div>
                             <img className={s.avatar} src={user.photos.small === null ? avatarDefault : user.photos.small} />
                         </div>
+                        </NavLink>
                         <div>
                             {user.followed ?
                                 <button onClick={() => props.unfollow(user.id)}>Unfollow</button> :

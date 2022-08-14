@@ -1,5 +1,7 @@
 const ADD_POST = "ADD-POST"
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
+const SET_USER_PROFILE = "SET_USER_PROFILE"
+const SET_TOGGLE_IS_FETCHING = "SET_TOGGLE_IS_FETCHING"
 
 
 let initialState = {
@@ -9,7 +11,9 @@ let initialState = {
         { id: 3, message: "React Kabzda forever", likecounter: 23 },
         { id: 4, message: "Today is tuesday or wednesday?", likecounter: 5 }
     ],
-    updatedNewPostText: "my post"
+    updatedNewPostText: "my post",
+    userProfile:null,
+    isFetching:true
 }
 
 let profileReducer = (state = initialState, action) => {
@@ -26,16 +30,27 @@ let profileReducer = (state = initialState, action) => {
                 ...state,
                 updatedNewPostText: action.newText
             }
+        case SET_USER_PROFILE:
+            return {
+                ...state,
+                userProfile:action.userProfile
+            }
+        case SET_TOGGLE_IS_FETCHING:
+            return {
+                ...state,
+                isFetching:action.status
+            }
         default:
             return state
-
+            
     }
-
 
 }
 
 
 export const addPostActionCreator = () => ({ type: ADD_POST })
 export const updateNewPostTextActionCreator = (text) => ({ type: UPDATE_NEW_POST_TEXT, newText: text })
+export const setUserProfile = (userProfile) => ({ type: SET_USER_PROFILE, userProfile })
+export const toggleIsFetching = (status) => ({ type: SET_TOGGLE_IS_FETCHING, status })
 
 export default profileReducer
