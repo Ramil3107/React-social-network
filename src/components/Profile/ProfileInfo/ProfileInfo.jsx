@@ -15,7 +15,7 @@ const ProfileInfo = (props) => {
 
                 <span className={s.userInfo}>
 
-                    <span>
+                    <span className={s.userAvatar}>
                         <img src={props.userProfile.photos.large === null ?
                             avatarDefault :
                             props.userProfile.photos.large}

@@ -28,3 +28,7 @@ padding-left: 100px;
 .message {
 padding-top: 15px;
 }
+
+.addPostBtn:hover {
+    cursor: pointer;
+}

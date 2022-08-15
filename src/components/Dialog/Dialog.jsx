@@ -63,7 +63,7 @@ let messages = props.messages
                     cols="30"
                     rows="5" />
 
-                <button onClick={onAddMessage}>Send</button>
+                <button className={s.addPostBtn} onClick={onAddMessage}>Send</button>
             </div>
         </div>
     )

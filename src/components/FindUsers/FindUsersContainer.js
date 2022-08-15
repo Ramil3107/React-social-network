@@ -16,7 +16,9 @@ class FindUsersContainer extends React.Component {
 
     componentDidMount() {
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageUsersLimit}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageUsersLimit}`,{
+            withCredentials:true
+        })
             .then(response => {
                 this.props.toggleIsFetching(false)
                 this.props.setUsers(response.data.items)
@@ -28,7 +30,9 @@ class FindUsersContainer extends React.Component {
         this.props.setPage(page)
         this.props.toggleIsFetching(true)
         
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageUsersLimit}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageUsersLimit}`,{
+            withCredentials:true
+        })
             .then(response => {
                 this.props.toggleIsFetching(false)
                 this.props.setUsers(response.data.items)
@@ -37,7 +41,9 @@ class FindUsersContainer extends React.Component {
 
     findUser = () => {
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?term=${this.props.findUserName}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?term=${this.props.findUserName}`,{
+            withCredentials:true
+        })
             .then(response => {
                 this.props.toggleIsFetching(false)
                 this.props.setUsers(response.data.items)
@@ -49,15 +55,7 @@ class FindUsersContainer extends React.Component {
 
     render() {
         return <FindUsers
-            users={this.props.users}
-            usersTotalCount={this.props.usersTotalCount}
-            pageUsersLimit={this.props.pageUsersLimit}
-            currentPage={this.props.currentPage}
-            findUserName={this.props.findUserName}
-            isFetching = {this.props.isFetching}
-            follow = {this.props.follow}
-            unfollow = {this.props.unfollow}
-            setFindUserName = {this.props.setFindUserName}
+            {...this.props}
             onPageChanged = {this.onPageChanged}
             findUser = {this.findUser}
              />
