@@ -1,52 +1,47 @@
 import { connect } from "react-redux";
-import { 
-    follow, 
-    setPage, 
-    setFindUserName, 
-    setTotalCount, 
-    setUsers, 
-    toggleIsFetching, 
-    unfollow } from "../../redux/usersReducer";
+import {
+    follow,
+    setPage,
+    setFindUserName,
+    setTotalCount,
+    setUsers,
+    toggleIsFetching,
+    unfollow
+} from "../../redux/usersReducer";
 import FindUsers from "./FindUsers";
-import * as axios from "axios"
 import React from "react";
+import { getPageUsers, getUser, getUsers } from "../../api/api";
 
 
 class FindUsersContainer extends React.Component {
 
     componentDidMount() {
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageUsersLimit}`,{
-            withCredentials:true
-        })
-            .then(response => {
+        getUsers(this.props.currentPage, this.props.pageUsersLimit)
+            .then(data => {
                 this.props.toggleIsFetching(false)
-                this.props.setUsers(response.data.items)
-                this.props.setTotalCount(response.data.totalCount)
+                this.props.setUsers(data.items)
+                this.props.setTotalCount(data.totalCount)
             })
     }
 
     onPageChanged = (page) => {
         this.props.setPage(page)
         this.props.toggleIsFetching(true)
-        
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageUsersLimit}`,{
-            withCredentials:true
-        })
-            .then(response => {
+
+        getPageUsers(page, this.props.pageUsersLimit)
+            .then(data => {
                 this.props.toggleIsFetching(false)
-                this.props.setUsers(response.data.items)
+                this.props.setUsers(data.items)
             })
     }
 
-    findUser = () => {
+    onSearchUser = () => {
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?term=${this.props.findUserName}`,{
-            withCredentials:true
-        })
-            .then(response => {
+        getUser(this.props.findUserName)
+            .then(data => {
                 this.props.toggleIsFetching(false)
-                this.props.setUsers(response.data.items)
+                this.props.setUsers(data.items)
                 if (this.props.findUserName === "") {
                     this.props.setPage(1)
                 }
@@ -56,9 +51,9 @@ class FindUsersContainer extends React.Component {
     render() {
         return <FindUsers
             {...this.props}
-            onPageChanged = {this.onPageChanged}
-            findUser = {this.findUser}
-             />
+            onPageChanged={this.onPageChanged}
+            onSearchUser={this.onSearchUser}
+        />
     }
 }
 
@@ -77,6 +72,6 @@ let mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, 
-    {follow,unfollow,setUsers,setPage,setTotalCount,setFindUserName,toggleIsFetching})
+export default connect(mapStateToProps,
+    { follow, unfollow, setUsers, setPage, setTotalCount, setFindUserName, toggleIsFetching })
     (FindUsersContainer)

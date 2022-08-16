@@ -32,7 +32,7 @@ const FindUsers = (props) => {
                 onChange={(e) => props.setFindUserName(e.target.value)}
                 type="text" />
 
-            <button onClick={props.findUser}>Find</button>
+            <button onClick={props.onSearchUser}>Find</button>
         </div>
 
 
