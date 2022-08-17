@@ -1,74 +1,36 @@
 import { connect } from "react-redux";
 import {
+    getUsers,
+    changePage,
+    searchUser,
     follow,
-    setPage,
-    setFindUserName,
-    setTotalCount,
-    setUsers,
-    toggleIsFetching,
     unfollow,
-    toggleIsFollowInProgress
+    setFindUserName
 } from "../../redux/usersReducer";
 import FindUsers from "./FindUsers";
 import React from "react";
-import { usersAPI } from "../../api/usersAPI";
 
 
 class FindUsersContainer extends React.Component {
 
     componentDidMount() {
-        this.props.toggleIsFetching(true)
-        usersAPI.getUsers(this.props.currentPage, this.props.pageUsersLimit)
-            .then(data => {
-                this.props.toggleIsFetching(false)
-                this.props.setUsers(data.items)
-                this.props.setTotalCount(data.totalCount)
-            })
+        this.props.getUsers(this.props.currentPage, this.props.pageUsersLimit)
     }
 
     onPageChanged = (page) => {
-        this.props.setPage(page)
-        this.props.toggleIsFetching(true)
-
-        usersAPI.getPageUsers(page, this.props.pageUsersLimit)
-            .then(data => {
-                this.props.toggleIsFetching(false)
-                this.props.setUsers(data.items)
-            })
+        this.props.changePage(page, this.props.pageUsersLimit)
     }
 
     onSearchUser = () => {
-        this.props.toggleIsFetching(true)
-        usersAPI.getUser(this.props.findUserName)
-            .then(data => {
-                this.props.toggleIsFetching(false)
-                this.props.setUsers(data.items)
-                if (this.props.findUserName === "") {
-                    this.props.setPage(1)
-                }
-            })
+        this.props.searchUser(this.props.findUserName)
     }
 
     onFollow = (userId) => {
-        this.props.toggleIsFollowInProgress(true, userId)
-        usersAPI.followUser(userId)
-            .then(data => {
-                if (data.resultCode == 0) {
-                    this.props.follow(userId)
-                }
-                this.props.toggleIsFollowInProgress(false,userId)
-            })
+        this.props.follow(userId)
     }
 
     onUnfollow = (userId) => {
-        this.props.toggleIsFollowInProgress(true,userId)
-        usersAPI.unfollowUser(userId)
-            .then(data => {
-                if (data.resultCode == 0) {
-                    this.props.unfollow(userId)
-                }
-                this.props.toggleIsFollowInProgress(false,userId)
-            })
+        this.props.unfollow(userId)
     }
 
 
@@ -100,5 +62,5 @@ let mapStateToProps = (state) => {
 
 
 export default connect(mapStateToProps,
-    { follow, unfollow, setUsers, setPage, setTotalCount, setFindUserName, toggleIsFetching, toggleIsFollowInProgress })
+    { follow, unfollow, searchUser, getUsers, changePage, setFindUserName })
     (FindUsersContainer)

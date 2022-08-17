@@ -1,11 +1,13 @@
+import { headerAPI } from "../api/headerAPI"
+
 const SET_AUTH_USER_DATA = "SET_AUTH_USER_DATA"
 
 
 let initialState = {
-    id:null,
-    login:null,
-    email:null,
-    isAuth:false
+    id: null,
+    login: null,
+    email: null,
+    isAuth: false
 }
 
 let authReducer = (state = initialState, action) => {
@@ -15,7 +17,7 @@ let authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 ...action.data,
-                isAuth:true
+                isAuth: true
             }
         default:
             return state
@@ -24,7 +26,21 @@ let authReducer = (state = initialState, action) => {
 
 }
 
+// Action Creators:
 
-export const setAuthUserData = (id,login,email) => ({ type: SET_AUTH_USER_DATA, data: {id,login,email} })
+export const setAuthUserData = (id, login, email) => ({ type: SET_AUTH_USER_DATA, data: { id, login, email } })
+
+
+// Thunks:
+
+export const authUser = () => (dispatch) => {
+    headerAPI.getAuthUserData()
+        .then(data => {
+            if (data.resultCode == 0) {
+                let { id, login, email } = data.data
+                dispatch(setAuthUserData(id, login, email))
+            }
+        })
+}
 
 export default authReducer
