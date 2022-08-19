@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getUserProfile } from "../../redux/profileReducer";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Profile from "./Profile";
+import { WithAuthRedirect } from "../../hoc/WithRedirect";
 
 
 
@@ -17,6 +18,7 @@ class ProfileContainer extends React.Component {
     }
 
     render() {
+        
         return (
             <Profile {...this.props} />
         )
@@ -43,9 +45,13 @@ function withRouter(Component) {
 
 let mapStateToProps = (state) => ({
     userProfile: state.profile.userProfile,
-    isFetching: state.profile.isFetching
+    isFetching: state.profile.isFetching,
+    isAuth: state.auth.isAuth
 })
 
 
+let AuthRedirectComponent = WithAuthRedirect(ProfileContainer)
+let WithRouterComponent = withRouter(AuthRedirectComponent)
 
-export default connect(mapStateToProps, { getUserProfile })(withRouter(ProfileContainer));
+
+export default connect(mapStateToProps, { getUserProfile })(WithRouterComponent);

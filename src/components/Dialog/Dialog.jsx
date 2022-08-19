@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Navigate, NavLink } from "react-router-dom";
 import s from "./Dialog.module.css";
 
 
@@ -26,7 +26,7 @@ const Message = ({ message }) => {
 
 const Dialog = (props) => {
 
-let messages = props.messages
+    let messages = props.messages
 
     let onMessageChange = (e) => {
         let text = e.target.value
@@ -37,11 +37,9 @@ let messages = props.messages
         props.addMessage()
     }
 
-
-
-    let dialogEl = messages.dialogs.map(dialog => <DialogUser name={dialog.name} id={dialog.id}  />)
-
+    let dialogEl = messages.dialogs.map(dialog => <DialogUser name={dialog.name} id={dialog.id} />)
     let messageEl = messages.messages.map(message => <Message message={message.message} id={message.id} />);
+
 
     return (
         <div className={s.dialogs}>
@@ -57,7 +55,7 @@ let messages = props.messages
             <div className={s.textarea}>
 
                 <textarea
-                    
+
                     onChange={onMessageChange}
                     value={messages.updatedNewMessageText}
                     cols="30"
