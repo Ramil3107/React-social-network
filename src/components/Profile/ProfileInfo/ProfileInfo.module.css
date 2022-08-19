@@ -17,3 +17,15 @@ p {
     width: 80%;
     height: 80%;
 }
+
+.status {
+    border: 3px grey solid;
+    max-width: max-content;
+    margin-top: 10px;
+}
+
+.steer {
+    color: grey;
+    font-size:small;
+    margin-top: 5px;
+}

@@ -2,6 +2,7 @@ import React from "react";
 import s from "./ProfileInfo.module.css";
 import avatarDefault from "../../../assets/images/defaultAvatar.jpeg"
 import Preloader from "../../common/Preloader/Preloader";
+import ProfileStatus from "./ProfileStatus";
 
 const ProfileInfo = (props) => {
 
@@ -20,6 +21,9 @@ const ProfileInfo = (props) => {
                             avatarDefault :
                             props.userProfile.photos.large}
                             alt="avatar" />
+
+                        <ProfileStatus />
+                        <div className={s.steer} >double click to edit</div>
                     </span>
 
 
@@ -31,7 +35,7 @@ const ProfileInfo = (props) => {
                             Status: {props.userProfile.aboutMe === null ? "..." : props.userProfile.aboutMe}
                         </p>
                         <p>
-                            Contacts: 
+                            Contacts:
                         </p>
                         <p>Instagram: {props.userProfile.contacts.instagram === null ? "..." : props.userProfile.contacts.instagram}</p>
                         <p>Facebook: {props.userProfile.contacts.facebook === null ? "..." : props.userProfile.contacts.facebook}</p>
