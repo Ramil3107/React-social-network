@@ -22,17 +22,15 @@ const ProfileInfo = (props) => {
                             props.userProfile.photos.large}
                             alt="avatar" />
 
-                        <ProfileStatus />
-                        <div className={s.steer} >double click to edit</div>
+                        <ProfileStatus 
+                        userStatus={props.userStatus}
+                        onUpdateUserStatus={props.onUpdateUserStatus}/>
                     </span>
 
 
                     <span className={s.info}>
                         <p>
                             Nickname: {props.userProfile.fullName === null ? "..." : props.userProfile.fullName}
-                        </p>
-                        <p>
-                            Status: {props.userProfile.aboutMe === null ? "..." : props.userProfile.aboutMe}
                         </p>
                         <p>
                             Contacts:

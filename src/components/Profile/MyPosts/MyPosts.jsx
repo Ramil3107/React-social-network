@@ -17,7 +17,7 @@ const MyPosts = (props) => {
     }
 
 
-    let postEl = props.posts.map(post => <Post message={post.message} likecounter={post.likecounter} />)
+    let postEl = props.posts.map(post => <Post key={post.id} message={post.message} likecounter={post.likecounter} />)
 
 
     return (
