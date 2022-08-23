@@ -14,7 +14,6 @@ let initialState = {
         { id: 3, message: "React Kabzda forever", likecounter: 23 },
         { id: 4, message: "Today is tuesday or wednesday?", likecounter: 5 }
     ],
-    updatedNewPostText: "my post",
     userProfile: null,
     isFetching: true,
     userStatus: ""
@@ -26,13 +25,7 @@ let profileReducer = (state = initialState, action) => {
         case ADD_POST:
             return {
                 ...state,
-                posts: [...state.posts, { id: 5, message: state.updatedNewPostText, likecounter: 8 }],
-                updatedNewPostText: ""
-            }
-        case UPDATE_NEW_POST_TEXT:
-            return {
-                ...state,
-                updatedNewPostText: action.newText
+                posts: [...state.posts, { id: 5, message: action.newPost, likecounter: 8 }]
             }
         case SET_USER_PROFILE:
             return {
@@ -58,8 +51,7 @@ let profileReducer = (state = initialState, action) => {
 
 // Action Creators:
 
-export const addPostActionCreator = () => ({ type: ADD_POST })
-export const updateNewPostTextActionCreator = (text) => ({ type: UPDATE_NEW_POST_TEXT, newText: text })
+export const addPostActionCreator = (newPost) => ({ type: ADD_POST, newPost })
 export const setUserProfile = (userProfile) => ({ type: SET_USER_PROFILE, userProfile })
 export const toggleIsFetching = (status) => ({ type: SET_TOGGLE_IS_FETCHING, status })
 export const setUserStatus = (status) => ({ type: SET_USER_STATUS, status })
@@ -84,11 +76,11 @@ export const getUserStatus = (userId) => (dispatch) => {
 
 export const updateUserStatus = (status) => (dispatch) => {
     profileAPI.updateUserStatus(status)
-    .then(data => {
-        if(data.resultCode === 0) {
-            dispatch(setUserStatus(status))
-        }
-    })
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(setUserStatus(status))
+            }
+        })
 }
 
 export default profileReducer

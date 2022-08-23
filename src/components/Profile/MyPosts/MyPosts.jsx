@@ -1,20 +1,18 @@
 import React from "react";
+import { useForm } from "react-hook-form";
 import s from "./MyPosts.module.css"
 import Post from "./Post/Post"
 
 
 const MyPosts = (props) => {
 
+    const { register, handleSubmit, reset } = useForm()
 
-    let onAddPost = () => {
-        props.addPost()
+    let onAddPost = (newPost) => {
+        props.addPost(newPost)
+        reset()
     }
 
-
-    let onPostChange = (e) => {
-        let text = e.target.value
-        props.postChange(text)
-    }
 
 
     let postEl = props.posts.map(post => <Post key={post.id} message={post.message} likecounter={post.likecounter} />)
@@ -24,7 +22,23 @@ const MyPosts = (props) => {
         <div className={s.myPosts}>
             <h3>My posts</h3>
 
+
             <div className={s.newPost}>
+                <form onSubmit={handleSubmit((data) => onAddPost(data.post))}>
+                    <div className={s.textArea}>
+                        <textarea
+                            {...register("post")}
+                            cols="30"
+                            rows="5"
+                        />
+                    </div>
+                    <div className={s.button}>
+                        <button type="submit">Send</button>
+                    </div>
+                </form>
+            </div>
+
+            {/* <div className={s.newPost}>
                 <div className={s.textArea}>
                     <textarea onChange={onPostChange} value={props.updatedNewPostText} />
                 </div>
@@ -32,7 +46,7 @@ const MyPosts = (props) => {
                 <div className={s.button}>
                     <button onClick={onAddPost}  >Add Post </button>
                 </div>
-            </div>
+            </div> */}
 
             <div className={s.posts}>
                 {postEl}
