@@ -29,7 +29,6 @@ class ProfileContainer extends React.Component {
             <Profile
                 {...this.props}
                 onUpdateUserStatus={this.onUpdateUserStatus}
-                console
             />
         )
     }
@@ -57,7 +56,8 @@ let mapStateToProps = (state) => ({
     userProfile: state.profile.userProfile,
     isFetching: state.profile.isFetching,
     userStatus: state.profile.userStatus,
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    myId: state.auth.id
 })
 
 

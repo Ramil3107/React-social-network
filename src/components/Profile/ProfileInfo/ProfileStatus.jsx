@@ -6,8 +6,7 @@ import s from "./ProfileInfo.module.css";
 
 
 
-const ProfileStatus = ({ userStatus, onUpdateUserStatus }) => {
-
+const ProfileStatus = ({ userStatus, onUpdateUserStatus}) => {
 
     let [status, setStatus] = useState(userStatus)
     let [editMode, setEditMode] = useState(false)

@@ -6,6 +6,8 @@ import ProfileStatus from "./ProfileStatus";
 
 const ProfileInfo = (props) => {
 
+    let currentUserId = props.currentUserId ? props.currentUserId : props.myId
+
     return (
         props.isFetching ? <Preloader /> :
 
@@ -21,10 +23,14 @@ const ProfileInfo = (props) => {
                             avatarDefault :
                             props.userProfile.photos.large}
                             alt="avatar" />
+                        {
+                            currentUserId != props.myId ?
+                                null :
+                                <ProfileStatus
+                                    userStatus={props.userStatus}
+                                    onUpdateUserStatus={props.onUpdateUserStatus} />
+                        }
 
-                        <ProfileStatus 
-                        userStatus={props.userStatus}
-                        onUpdateUserStatus={props.onUpdateUserStatus}/>
                     </span>
 
 

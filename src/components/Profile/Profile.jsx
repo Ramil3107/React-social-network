@@ -9,6 +9,8 @@ const Profile = (props) => {
     return (
         <div className={s.content}>
             <ProfileInfo
+            currentUserId={props.router.params.userId}
+            myId={props.myId}
             onUpdateUserStatus={props.onUpdateUserStatus}
             userProfile={props.userProfile} 
             isFetching={props.isFetching}
