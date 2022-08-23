@@ -62,14 +62,6 @@ const Dialog = (props) => {
                     <button type="submit">Send</button>
                 </form>
 
-                {/* <textarea
-
-                    onChange={onMessageChange}
-                    value={messages.updatedNewMessageText}
-                    cols="30"
-                    rows="5" />
-
-                <button className={s.addPostBtn} onClick={onAddMessage}>Send</button> */}
             </div>
         </div>
     )
