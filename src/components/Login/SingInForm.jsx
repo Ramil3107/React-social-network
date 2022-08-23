@@ -32,7 +32,7 @@ const SignInForm = () => {
                                 },
                                 maxLength: {
                                     value: 10,
-                                    message: "Max length 30 symbols"
+                                    message: "Max length 10 symbols"
                                 }
                             })} />
                     </div>
@@ -57,7 +57,7 @@ const SignInForm = () => {
                             },
                             maxLength: {
                                 value: 20,
-                                message: "Max length 30 symbols"
+                                message: "Max length 20 symbols"
                             }
                         })} />
                     </div>
