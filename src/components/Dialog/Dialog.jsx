@@ -1,5 +1,6 @@
 import React from "react";
-import { Navigate, NavLink } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { NavLink } from "react-router-dom";
 import s from "./Dialog.module.css";
 
 
@@ -26,15 +27,13 @@ const Message = ({ message }) => {
 
 const Dialog = (props) => {
 
+    const { register, handleSubmit, reset } = useForm()
+
     let messages = props.messages
 
-    let onMessageChange = (e) => {
-        let text = e.target.value
-        props.messageChange(text)
-    }
-
-    let onAddMessage = () => {
-        props.addMessage()
+    let onAddMessage = (message) => {
+        props.addMessage(message)
+        reset()
     }
 
     let dialogEl = messages.dialogs.map(dialog => <DialogUser name={dialog.name} id={dialog.id} />)
@@ -54,14 +53,23 @@ const Dialog = (props) => {
 
             <div className={s.textarea}>
 
-                <textarea
+                <form onSubmit={handleSubmit((data) => onAddMessage(data.message))}>
+                    <textarea
+                        {...register("message")}
+                        cols="30"
+                        rows="5"
+                    />
+                    <button type="submit">Send</button>
+                </form>
+
+                {/* <textarea
 
                     onChange={onMessageChange}
                     value={messages.updatedNewMessageText}
                     cols="30"
                     rows="5" />
 
-                <button className={s.addPostBtn} onClick={onAddMessage}>Send</button>
+                <button className={s.addPostBtn} onClick={onAddMessage}>Send</button> */}
             </div>
         </div>
     )
