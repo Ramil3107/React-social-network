@@ -11,15 +11,69 @@ const SignInForm = () => {
         reset()
     }
 
-    const { register, handleSubmit, reset } = useForm()
+    const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm({ mode: "onBlur" })
 
     return (
         <div className={styles.formContainer}>
-            <form onSubmit={handleSubmit(data => onSubmit((data)))}>
-                <div><input placeholder="login" type="text" {...register("login")} /></div>
-                <div><input placeholder="password" type="text" {...register("password")} /></div>
-                <div><input type="checkbox" {...register("rememberMe")} />Remember Me</div>
-                <button type="submit">Submit</button>
+            <form
+                onSubmit={handleSubmit(data => onSubmit((data)))}>
+
+                <label>
+                    Login:
+                    <div>
+                        <input
+                            placeholder="login"
+                            type="text"
+                            {...register("login", {
+                                required: "Field is required!",
+                                minLength: {
+                                    value: 5,
+                                    message: "Min length 5 symbols"
+                                },
+                                maxLength: {
+                                    value: 10,
+                                    message: "Max length 30 symbols"
+                                }
+                            })} />
+                    </div>
+                </label>
+                <div
+                    style={{ height: 15, color: "red", fontSize: 15 }}>
+                    {errors?.login?.message ? errors.login.message : null}
+                </div>
+
+
+                <label>
+                    Password:
+                    <div>
+                        <input 
+                        placeholder="password" 
+                        type="text" 
+                        {...register("password", {
+                            required: "Field is required!",
+                            minLength: {
+                                value: 5,
+                                message: "Min length 5 symbols"
+                            },
+                            maxLength: {
+                                value: 20,
+                                message: "Max length 30 symbols"
+                            }
+                        })} />
+                    </div>
+                </label>
+                <div
+                    style={{ height: 15, color: "red", fontSize: 15 }}>
+                    {errors?.password?.message ? errors.password.message : null}
+                </div>
+
+                <div>
+                    <input type="checkbox" {...register("rememberMe")} />
+                    Remember Me
+                </div>
+                <input
+                    type="submit"
+                    disabled={!isValid} />
             </form>
         </div>
     )
