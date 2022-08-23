@@ -18,6 +18,9 @@ cursor: pointer;
   text-decoration: none;
   color: white;
 }
+.nav .item.login {
+  margin: 100px;
+}
 
 .item a.active {
   color: gold;
