@@ -4,14 +4,15 @@ import styles from "./Login.module.css"
 
 
 
-const SignInForm = () => {
-
-    const onSubmit = (data) => {
-        console.log(data)
-        reset()
-    }
+const SignInForm = ({signIn}) => {
 
     const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm({ mode: "onBlur" })
+
+    const onSubmit = (data) => {
+        let {email,password,rememberMe} = data
+        signIn(email,password,rememberMe)
+        reset()
+    }
 
     return (
         <div className={styles.formContainer}>
@@ -22,24 +23,24 @@ const SignInForm = () => {
                     Login:
                     <div>
                         <input
-                            placeholder="login"
+                            placeholder="email"
                             type="text"
-                            {...register("login", {
+                            {...register("email", {
                                 required: "Field is required!",
                                 minLength: {
                                     value: 5,
                                     message: "Min length 5 symbols"
                                 },
                                 maxLength: {
-                                    value: 10,
-                                    message: "Max length 10 symbols"
+                                    value: 30,
+                                    message: "Max length 30 symbols"
                                 }
                             })} />
                     </div>
                 </label>
                 <div
                     style={{ height: 15, color: "red", fontSize: 15 }}>
-                    {errors?.login?.message ? errors.login.message : null}
+                    {errors?.email?.message ? errors.email.message : null}
                 </div>
 
 
@@ -48,7 +49,7 @@ const SignInForm = () => {
                     <div>
                         <input 
                         placeholder="password" 
-                        type="text" 
+                        type="password" 
                         {...register("password", {
                             required: "Field is required!",
                             minLength: {
@@ -56,8 +57,8 @@ const SignInForm = () => {
                                 message: "Min length 5 symbols"
                             },
                             maxLength: {
-                                value: 20,
-                                message: "Max length 20 symbols"
+                                value: 30,
+                                message: "Max length 30 symbols"
                             }
                         })} />
                     </div>

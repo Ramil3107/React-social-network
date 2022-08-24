@@ -1,8 +1,12 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import s from "./Navigation.module.css"
 
 const Navigation = (props) => {
+
+    const isAuth = useSelector(state => state.auth.isAuth)
+
     return (<nav className={s.nav}>
         <div className={s.item}>
             <NavLink to="/profile" className={({ isActive }) => (isActive ? [s.active] : [])}>Profile</NavLink>
@@ -23,7 +27,7 @@ const Navigation = (props) => {
             <NavLink to="settings" className={({ isActive }) => (isActive ? [s.active] : [])}>Settings</NavLink>
         </div>
         <div className={`${s.item} ${s.login}`}>
-            <NavLink to="login" className={({ isActive }) => (isActive ? [s.active] : [])}>Login</NavLink>
+            <NavLink to="login" className={({ isActive }) => (isActive ? [s.active] : [])}>{isAuth ? "Logout" : "Login"}</NavLink>
         </div>
     </nav>
     )

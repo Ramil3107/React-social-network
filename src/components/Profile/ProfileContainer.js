@@ -5,16 +5,15 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Profile from "./Profile";
 import { WithAuthRedirect } from "../../hoc/withRedirect";
 import { compose } from "redux";
+import Preloader from "../common/Preloader/Preloader";
 
 
 
 class ProfileContainer extends React.Component {
 
+
     componentDidMount() {
-        let userId = this.props.router.params.userId
-        if (!userId) {
-            userId = 25457
-        }
+        let userId = this.props.myId
         this.props.getUserProfile(userId)
         this.props.getUserStatus(userId)
     }
@@ -24,13 +23,17 @@ class ProfileContainer extends React.Component {
     }
 
     render() {
-
-        return (
-            <Profile
+        let userId = this.props.myId
+        if (!userId) {
+            return <Preloader />
+        }
+        if (userId) {
+            return <Profile
                 {...this.props}
                 onUpdateUserStatus={this.onUpdateUserStatus}
             />
-        )
+        }
+
     }
 
 }
@@ -62,7 +65,7 @@ let mapStateToProps = (state) => ({
 
 
 export default compose(
-    // WithAuthRedirect, 
+    WithAuthRedirect,
     withRouter,
     connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus })
 )(ProfileContainer)
