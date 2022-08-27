@@ -6,9 +6,9 @@ import { authUser } from "../../redux/authReducer";
 
 class HeaderContainer extends React.Component {
 
-    componentDidMount() {
-        this.props.authUser()
-    }
+    // componentDidMount() {
+    //     this.props.authUser()
+    // }
 
     render() {
         return (

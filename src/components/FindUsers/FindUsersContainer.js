@@ -10,7 +10,7 @@ import {
 import FindUsers from "./FindUsers";
 import React from "react";
 import { compose } from "redux";
-import { WithAuthRedirect } from "../../hoc/withRedirect";
+import { withAuthRedirect } from "../../hoc/WithAuthRedirect";
 
 
 class FindUsersContainer extends React.Component {
@@ -66,6 +66,6 @@ let mapStateToProps = (state) => {
 
 
 export default compose(
-    WithAuthRedirect,
+    withAuthRedirect,
     connect(mapStateToProps, { follow, unfollow, searchUser, getUsers, changePage, setFindUserName }))
     (FindUsersContainer)
