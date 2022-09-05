@@ -38,22 +38,12 @@ const MyPosts = (props) => {
                 </form>
             </div>
 
-            {/* <div className={s.newPost}>
-                <div className={s.textArea}>
-                    <textarea onChange={onPostChange} value={props.updatedNewPostText} />
-                </div>
-
-                <div className={s.button}>
-                    <button onClick={onAddPost}  >Add Post </button>
-                </div>
-            </div> */}
-
             <div className={s.posts}>
                 {postEl}
             </div>
 
         </div>
     )
-}
+})
 
 export default MyPosts;

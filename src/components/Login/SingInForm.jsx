@@ -4,20 +4,21 @@ import styles from "./Login.module.css"
 
 
 
-const SignInForm = ({signIn}) => {
+const SignInForm = ({ signIn }) => {
 
     const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm({ mode: "onBlur" })
 
     const onSubmit = (data) => {
-        let {email,password,rememberMe} = data
-        signIn(email,password,rememberMe)
+        let { email, password, rememberMe } = data
+        signIn(email, password, rememberMe)
         reset()
     }
 
     return (
         <div className={styles.formContainer}>
             <form
-                onSubmit={handleSubmit(data => onSubmit((data)))}>
+                onSubmit={handleSubmit(data => onSubmit((data)))}
+            >
 
                 <label>
                     Login:
@@ -47,20 +48,20 @@ const SignInForm = ({signIn}) => {
                 <label>
                     Password:
                     <div>
-                        <input 
-                        placeholder="password" 
-                        type="password" 
-                        {...register("password", {
-                            required: "Field is required!",
-                            minLength: {
-                                value: 5,
-                                message: "Min length 5 symbols"
-                            },
-                            maxLength: {
-                                value: 30,
-                                message: "Max length 30 symbols"
-                            }
-                        })} />
+                        <input
+                            placeholder="password"
+                            type="password"
+                            {...register("password", {
+                                required: "Field is required!",
+                                minLength: {
+                                    value: 5,
+                                    message: "Min length 5 symbols"
+                                },
+                                maxLength: {
+                                    value: 30,
+                                    message: "Max length 30 symbols"
+                                }
+                            })} />
                     </div>
                 </label>
                 <div
