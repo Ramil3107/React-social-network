@@ -26,7 +26,8 @@ const ProfileInfo = (props) => {
                             alt="avatar" />
                         {
                             currentUserId != props.myId ?
-                                null :
+                                <p>{props.userStatus ? props.userStatus : "No Status"}</p>
+                                :
                                 <ProfileStatus
                                     userStatus={props.userStatus}
                                     onUpdateUserStatus={props.onUpdateUserStatus} />
