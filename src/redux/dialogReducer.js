@@ -1,7 +1,4 @@
-const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT"
 const ADD_MESSAGE = "ADD-MESSAGE"
-
-
 
 let initialState = {
     dialogs: [
@@ -17,23 +14,18 @@ let initialState = {
     ]
 }
 
-
 let dialogReducer = (state = initialState, action) => {
-
     switch (action.type) {
-
         case ADD_MESSAGE:
             return {
                 ...state,
                 messages: [...state.messages, { id: 5, message: action.message }]
             }
-
         default:
             return state
 
     }
 }
-
 
 // Action Creators:
 

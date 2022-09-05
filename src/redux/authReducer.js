@@ -1,12 +1,7 @@
-import { Navigate, useNavigate } from "react-router-dom"
 import { authAPI } from "../api/authAPI"
 
 const SET_AUTH_USER_DATA = "SET_AUTH_USER_DATA"
 const CLEAN_USER_DATA = "CLEAN_USER_DATA"
-
-
-
-
 
 let initialState = {
     id: null,
@@ -16,7 +11,6 @@ let initialState = {
 }
 
 let authReducer = (state = initialState, action) => {
-
     switch (action.type) {
         case SET_AUTH_USER_DATA:
             return {
@@ -35,8 +29,6 @@ let authReducer = (state = initialState, action) => {
         default:
             return state
     }
-
-
 }
 
 // Action Creators:
@@ -47,31 +39,26 @@ export const cleanUserData = () => ({ type: CLEAN_USER_DATA })
 
 // Thunks:
 
-export const authUser = () => (dispatch) => {
-    authAPI.getAuthUserData()
-        .then(data => {
-            if (data.resultCode == 0) {
-                let { id, login, email } = data.data
-                dispatch(setAuthUserData(id, login, email))
-            }
-        })
+export const authUser = () => async (dispatch) => {
+    let data = await authAPI.getAuthUserData()
+    if (data.resultCode == 0) {
+        let { id, login, email } = data.data
+        dispatch(setAuthUserData(id, login, email))
+    }
 }
 
-export const signInUser = (email, password, rememberMe) => (dispatch) => {
-    authAPI.signInRequest(email, password, rememberMe)
-        .then(data => {
-            if (data.resultCode == 0) {
-                dispatch(authUser())
-            }
-        })
+export const signInUser = (email, password, rememberMe) => async (dispatch) => {
+    let data = await authAPI.signInRequest(email, password, rememberMe)
+    if (data.resultCode == 0) {
+        dispatch(authUser())
+    }
 }
-export const logoutUser = () => (dispatch) => {
-    authAPI.logoutRequest()
-        .then(data => {
-            if (data.resultCode == 0) {
-                dispatch(cleanUserData())
-            }
-        })
+
+export const logoutUser = () => async (dispatch) => {
+    let data = await authAPI.logoutRequest()
+    if (data.resultCode == 0) {
+        dispatch(cleanUserData())
+    }
 }
 
 export default authReducer

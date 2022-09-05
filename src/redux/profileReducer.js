@@ -1,11 +1,9 @@
 import { profileAPI } from "../api/profileAPI"
 
 const ADD_POST = "ADD-POST"
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
 const SET_USER_PROFILE = "SET_USER_PROFILE"
 const SET_TOGGLE_IS_FETCHING = "SET_TOGGLE_IS_FETCHING"
 const SET_USER_STATUS = "SET_USER_STATUS"
-
 
 let initialState = {
     posts: [
@@ -20,7 +18,6 @@ let initialState = {
 }
 
 let profileReducer = (state = initialState, action) => {
-
     switch (action.type) {
         case ADD_POST:
             return {
@@ -45,9 +42,7 @@ let profileReducer = (state = initialState, action) => {
         default:
             return state
     }
-
 }
-
 
 // Action Creators:
 
@@ -58,29 +53,23 @@ export const setUserStatus = (status) => ({ type: SET_USER_STATUS, status })
 
 // Thunks:
 
-export const getUserProfile = (userId) => (dispatch) => {
+export const getUserProfile = (userId) => async (dispatch) => {
     dispatch(toggleIsFetching(true))
-    profileAPI.getUserData(userId)
-        .then(data => {
-            dispatch(setUserProfile(data))
-            dispatch(toggleIsFetching(false))
-        })
+    let data = await profileAPI.getUserData(userId)
+    dispatch(setUserProfile(data))
+    dispatch(toggleIsFetching(false))
 }
 
-export const getUserStatus = (userId) => (dispatch) => {
-    profileAPI.getUserStatus(userId)
-        .then(data => {
-            dispatch(setUserStatus(data))
-        })
+export const getUserStatus = (userId) => async (dispatch) => {
+    let data = await profileAPI.getUserStatus(userId)
+    dispatch(setUserStatus(data))
 }
 
-export const updateUserStatus = (status) => (dispatch) => {
-    profileAPI.updateUserStatus(status)
-        .then(data => {
-            if (data.resultCode === 0) {
-                dispatch(setUserStatus(status))
-            }
-        })
+export const updateUserStatus = (status) => async (dispatch) => {
+    let data = await profileAPI.updateUserStatus(status)
+    if (data.resultCode === 0) {
+        dispatch(setUserStatus(status))
+    }
 }
 
 export default profileReducer
