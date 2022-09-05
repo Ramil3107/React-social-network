@@ -6,6 +6,7 @@ import Profile from "./Profile";
 import { compose } from "redux";
 import Preloader from "../common/Preloader/Preloader";
 import { withAuthRedirect } from "../../hoc/WithAuthRedirect";
+import { withRouter } from "../common/withRouter";
 
 
 
@@ -39,23 +40,6 @@ class ProfileContainer extends React.Component {
 
 }
 
-
-function withRouter(Component) {
-    function ComponentWithRouterProp(props) {
-        let location = useLocation();
-        let navigate = useNavigate();
-        let params = useParams();
-        return (
-            <Component
-                {...props}
-                router={{ location, navigate, params }}
-            />
-        );
-    }
-
-    return ComponentWithRouterProp;
-}
-
 let mapStateToProps = (state) => ({
     userProfile: state.profile.userProfile,
     isFetching: state.profile.isFetching,
@@ -68,5 +52,4 @@ let mapStateToProps = (state) => ({
 export default compose(
     withAuthRedirect,
     withRouter,
-    connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus })
-)(ProfileContainer)
+    connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus }))(ProfileContainer)

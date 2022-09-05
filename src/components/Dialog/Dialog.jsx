@@ -25,14 +25,14 @@ const Message = ({ message }) => {
 }
 
 
-const Dialog = (props) => {
+const Dialog = ({ stateMessages, addMessage }) => {
 
     const { register, handleSubmit, reset } = useForm()
 
-    let messages = props.messages
+    let messages = stateMessages
 
     let onAddMessage = (message) => {
-        props.addMessage(message)
+        addMessage(message)
         reset()
     }
 

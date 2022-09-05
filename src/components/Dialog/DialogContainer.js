@@ -10,7 +10,7 @@ import { compose } from "redux";
 let mapStateToProps = (state) => {
     return (
         {
-            messages: state.messages,
+            stateMessages: state.messages,
             isAuth: state.auth.isAuth
         }
     )

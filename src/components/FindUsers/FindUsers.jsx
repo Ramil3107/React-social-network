@@ -1,81 +1,47 @@
 import React from "react";
-import s from "./FindUsers.module.css"
-import avatarDefault from "../../assets/images/defaultAvatar.jpeg"
 import Preloader from "../common/Preloader/Preloader";
-import { NavLink } from "react-router-dom";
+import Pagination from "./Pagination";
+import Users from "./Users";
+import UserSearch from "./UserSearch";
 
-const FindUsers = (props) => {
 
-    let pagesCount = Math.ceil(props.usersTotalCount / props.pageUsersLimit)
-    let pages = []
-    for (let i = 1; i <= pagesCount && i <= 30; i++) {
-        pages.push(i)
-    }
+const FindUsers = ({
+    usersTotalCount,
+    pageUsersLimit,
+    onPageChanged,
+    currentPage,
+    setFindUserName,
+    findUserName,
+    onSearchUser,
+    users,
+    onFollow,
+    onUnfollow,
+    isFollowInProgress,
+    isFetching }) => {
 
     return <div>
-        <div className={s.pages}>
-            {
-                pages.map(p => <span
-                    key={p}
-                    onClick={() => props.onPageChanged(p)}
-                    className={props.currentPage === p ? s.selectedPage : s.page}>
-                    {p}
-                </span>)
-            }
-        </div>
+        <Pagination
+            usersTotalCount={usersTotalCount}
+            pageUsersLimit={pageUsersLimit}
+            onPageChanged={onPageChanged}
+            currentPage={currentPage}
+        />
 
-        <div className={s.findUser}>
-            <input
-                placeholder="find user..."
-                value={props.findUserName}
-                onChange={(e) => props.setFindUserName(e.target.value)}
-                type="text" />
-
-            <button onClick={props.onSearchUser}>Find</button>
-        </div>
-
+        <UserSearch
+            setFindUserName={setFindUserName}
+            onSearchUser={onSearchUser}
+            findUserName={findUserName}
+        />
 
         {
-            props.isFetching ?
+            isFetching ?
                 <Preloader /> :
-                props.users.map(user => <div className={s.item} key={user.id}>
-
-                    <span className={s.user}>
-                        <NavLink to={"/profile/" + user.id}>
-                            <div>
-                                <img 
-                                className={s.avatar} 
-                                src={user.photos.small === null ? avatarDefault : user.photos.small} />
-                            </div>
-                        </NavLink>
-                        <div>
-                            {!user.followed ?
-                                <button
-                                    disabled={props.isFollowInProgress.some(id => id == user.id)}
-                                    onClick={() => props.onFollow(user.id)}>
-                                    Follow
-                                </button>
-                                :
-                                <button
-                                    disabled={props.isFollowInProgress.some(id => id == user.id)}
-                                    onClick={() => props.onUnfollow(user.id)}>
-                                    Unfollow
-                                </button>}
-                        </div>
-                    </span>
-
-                    <span className={s.userInfo}>
-                        <p>user name: {user.name}</p>
-                        <p>{user.status === null ? "No status" : user.status}</p>
-                    </span>
-
-                    <span className={s.userAdress}>
-                        <p>{"user.country"}</p>
-                        <p>{"user.city"}</p>
-                    </span>
-
-                </ div>
-                )
+                <Users
+                    users={users}
+                    onFollow={onFollow}
+                    onUnfollow={onUnfollow}
+                    isFollowInProgress={isFollowInProgress}
+                />
         }
 
     </div>

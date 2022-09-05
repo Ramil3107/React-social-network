@@ -1,25 +1,21 @@
 import React from "react"
-import { useEffect } from "react"
 import { connect, useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
 import { logoutUser, signInUser } from "../../redux/authReducer"
 import SignInForm from "./SingInForm"
 
 
-const Login = (props) => {
+const Login = ({ signInUser, logoutUser }) => {
 
     const isAuth = useSelector(state => state.auth.isAuth)
     const login = useSelector(state => state.auth.login)
-    const navigate = useNavigate()
 
-    
 
     const signIn = (email, password, rememberMe) => {
-        props.signInUser(email, password, rememberMe)
+        signInUser(email, password, rememberMe)
     }
 
     const logout = () => {
-        props.logoutUser()
+        logoutUser()
     }
 
     return (

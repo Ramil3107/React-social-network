@@ -4,19 +4,16 @@ import s from "./MyPosts.module.css"
 import Post from "./Post/Post"
 
 
-const MyPosts = (props) => {
+const MyPosts = ({ addPost, posts }) => {
 
     const { register, handleSubmit, reset } = useForm()
 
     let onAddPost = (newPost) => {
-        props.addPost(newPost)
+        addPost(newPost)
         reset()
     }
 
-
-
-    let postEl = props.posts.map(post => <Post key={post.id} message={post.message} likecounter={post.likecounter} />)
-
+    let postEl = posts.map(post => <Post key={post.id} message={post.message} likecounter={post.likecounter} />)
 
     return (
         <div className={s.myPosts}>
@@ -44,6 +41,6 @@ const MyPosts = (props) => {
 
         </div>
     )
-})
+}
 
 export default MyPosts;

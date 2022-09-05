@@ -9,8 +9,9 @@ const ProfileInfo = (props) => {
     let currentUserId = props.currentUserId ? props.currentUserId : props.myId
 
     return (
-        props.isFetching ? <Preloader /> :
-
+        props.isFetching ?
+            <Preloader />
+            :
             <div className={s.profileInfo}>
                 <div className={s.coverImage}>
                     <img src='https://i.pinimg.com/736x/64/cc/fa/64ccfa4a392b9f3e1c6004fcedd3a18c.jpg' />

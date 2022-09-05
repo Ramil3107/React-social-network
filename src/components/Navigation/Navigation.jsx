@@ -1,35 +1,53 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import s from "./Navigation.module.css"
 
-const Navigation = (props) => {
+const Navigation = () => {
 
     const isAuth = useSelector(state => state.auth.isAuth)
 
-    return (<nav className={s.nav}>
-        <div className={s.item}>
-            <NavLink to="/profile" className={({ isActive }) => (isActive ? [s.active] : [])}>Profile</NavLink>
-        </div>
-        <div className={s.item}>
-            <NavLink to="/dialog" className={({ isActive }) => (isActive ? [s.active] : [])}>Messages</NavLink>
-        </div>
-        <div className={s.item}>
-            <NavLink to="/users" className={({ isActive }) => (isActive ? [s.active] : [])}>Find Users</NavLink>
-        </div>
-        <div className={s.item}>
-            <NavLink to="/news" className={({ isActive }) => (isActive ? [s.active] : [])}>News</NavLink>
-        </div>
-        <div className={s.item}>
-            <NavLink to="/music" className={({ isActive }) => (isActive ? [s.active] : [])}>Music</NavLink>
-        </div>
-        <div className={s.item}>
-            <NavLink to="settings" className={({ isActive }) => (isActive ? [s.active] : [])}>Settings</NavLink>
-        </div>
-        <div className={`${s.item} ${s.login}`}>
-            <NavLink to="login" className={({ isActive }) => (isActive ? [s.active] : [])}>{isAuth ? "Logout" : "Login"}</NavLink>
-        </div>
-    </nav>
+    const navItems = [
+        {
+            path: "/profile",
+            name: "Profile"
+        },
+        {
+            path: "/dialog",
+            name: "Messages"
+        },
+        {
+            path: "/users",
+            name: "Find Users"
+        },
+        {
+            path: "/news",
+            name: "News"
+        },
+        {
+            path: "/music",
+            name: "Music"
+        },
+        {
+            path: "settings",
+            name: "Settings"
+        },
+        {
+            path: "login",
+            name: isAuth ? "Logout" : "Login"
+        },
+    ]
+
+    return (
+        <nav className={s.nav}>
+            {
+                navItems.map(item => {
+                    return <div className={s.item}>
+                        <NavLink to={item.path} className={({ isActive }) => (isActive ? [s.active] : [])}>{item.name}</NavLink>
+                    </div>
+                })
+            }
+        </nav>
     )
 }
 
