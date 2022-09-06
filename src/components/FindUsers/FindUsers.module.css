@@ -1,9 +1,20 @@
+.paginationWrapper {
+    margin: 5px;
+    margin-top: 15px;
+    margin-left: 15px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .pages {
     margin: 5px;
 }
 
 .page {
+    padding: 5px;
+    margin: 3px;
     cursor: pointer;
+    border: 1px gray solid;
 }
 
 .findUser {
@@ -11,13 +22,15 @@
 }
 
 .selectedPage {
+    padding: 5px;
+    margin: 3px;
     color: black;
     font-weight: bold;
-    text-decoration: underline;
+    border: 1px black solid;
 }
 
 span {
-    margin: 5px;
+    /* margin: 5px; */
 }
 
 .item {
