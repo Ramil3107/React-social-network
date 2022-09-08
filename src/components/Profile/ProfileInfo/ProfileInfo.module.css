@@ -16,6 +16,7 @@ p {
 .userAvatar img{
     width: 300px;
     height: 300px;
+    margin-right: 30px;
 }
 
 .status {

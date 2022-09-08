@@ -5,10 +5,14 @@ import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatus from "./ProfileStatus";
 import { useState } from "react";
 import ProfilePhotoChangeBar from "./ProfilePhotoChangeBar";
+import ProfileAboutMe from "./ProfileAboutMe";
 
 const ProfileInfo = (props) => {
 
     let currentUserId = props.currentUserId ? props.currentUserId : props.myId
+    let [editMode, setEditMode] = useState(false)
+
+
 
     return (
         props.isFetching ?
@@ -50,19 +54,11 @@ const ProfileInfo = (props) => {
 
                     </span>
 
+                    {
+                        editMode ?
+                            <ProfileAboutMe userProfile={props.userProfile} />
+                    }
 
-                    <span className={s.info}>
-                        <p>
-                            Nickname: {props.userProfile.fullName === null ? "..." : props.userProfile.fullName}
-                        </p>
-                        <p>
-                            Contacts:
-                        </p>
-                        <p>Instagram: {props.userProfile.contacts.instagram === null ? "..." : props.userProfile.contacts.instagram}</p>
-                        <p>Facebook: {props.userProfile.contacts.facebook === null ? "..." : props.userProfile.contacts.facebook}</p>
-                        <p>Twiter: {props.userProfile.contacts.twitter === null ? "..." : props.userProfile.contacts.twitter}</p>
-                        <p>GitHub: {props.userProfile.contacts.github === null ? "..." : props.userProfile.contacts.github}</p>
-                    </span>
 
                 </span>
             </div>
