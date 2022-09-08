@@ -19,6 +19,7 @@ export const profileAPI = {
         })
             .then(response => response.data)
     },
+
     uploadPhoto(photo) {
         const formData = new FormData();
         formData.append("image", photo);
@@ -28,6 +29,18 @@ export const profileAPI = {
                 'Content-Type': 'multipart/form-data'
             }
         })
+            .then(response => response.data)
+    },
+
+    uloadAboutMe(data) {
+        const { lookingForAJob, lookingForAJobDescription, fullName } = data
+        const uploadData = {
+            aboutMe: "required field",
+            lookingForAJob,
+            lookingForAJobDescription,
+            fullName
+        }
+        return instance.put(`profile`, uploadData)
             .then(response => response.data)
     }
 }

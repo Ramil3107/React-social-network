@@ -7,6 +7,8 @@ const SET_USER_STATUS = "SET_USER_STATUS"
 const UPDATE_USER_PHOTOS = "UPDATE_USER_PHOTOS"
 const SET_PHOTO_IS_LOADING = "SET_PHOTO_IS_LOADING"
 const SET_PHOTO_UPLOAD_ERROR = "SET_PHOTO_UPLOAD_ERROR"
+const SET_ABOUT_ME_LOADER = "SET_ABOUT_ME_LOADER"
+const SET_ABOUT_ME_ERROR = "SET_ABOUT_ME_ERROR"
 
 let initialState = {
     posts: [
@@ -18,6 +20,8 @@ let initialState = {
     userProfile: null,
     isFetching: true,
     photoLoading: false,
+    aboutMeLoading: false,
+    aboutMeError: null,
     photoUploadError: null,
     userStatus: ""
 }
@@ -44,6 +48,11 @@ let profileReducer = (state = initialState, action) => {
                 ...state,
                 photoLoading: action.status
             }
+        case SET_ABOUT_ME_LOADER:
+            return {
+                ...state,
+                aboutMeLoading: action.status
+            }
         case SET_USER_STATUS:
             return {
                 ...state,
@@ -57,6 +66,11 @@ let profileReducer = (state = initialState, action) => {
             return {
                 ...state,
                 photoUploadError: action.status
+            }
+        case SET_ABOUT_ME_ERROR:
+            return {
+                ...state,
+                aboutMeError: action.error
             }
         default:
             return state
@@ -72,6 +86,11 @@ export const setUserStatus = (status) => ({ type: SET_USER_STATUS, status })
 export const updateUserPhotos = (photos) => ({ type: UPDATE_USER_PHOTOS, photos })
 export const toggleIsPhotoLoading = (status) => ({ type: SET_PHOTO_IS_LOADING, status })
 export const setPhotoUploadError = (error) => ({ type: SET_PHOTO_UPLOAD_ERROR, error })
+export const setAboutMeLoader = (status) => ({ type: SET_ABOUT_ME_LOADER, status })
+export const setAboutMeError = (error) => ({ type: SET_ABOUT_ME_ERROR, error })
+
+
+
 // Thunks:
 
 export const getUserProfile = (userId) => async (dispatch) => {
@@ -103,6 +122,19 @@ export const uploadPhotoThunk = (photo) => async (dispatch) => {
         dispatch(setPhotoUploadError("Opps, something went wrong! Refresh page and try again!"))
     }
     dispatch(toggleIsPhotoLoading(false))
+}
+
+export const saveAboutMeInfoThunk = (uploadData, setEditMode, id) => async (dispatch) => {
+    dispatch(setAboutMeLoader(true))
+    let data = await profileAPI.uloadAboutMe(uploadData)
+    if (data.resultCode === 0) {
+        setAboutMeError(null)
+        dispatch(getUserProfile(id))
+        setEditMode(false)
+    } else {
+        setAboutMeError("Opps, something went wrong! Refresh page and try again!")
+    }
+    dispatch(setAboutMeLoader(false))
 }
 
 export default profileReducer

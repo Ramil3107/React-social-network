@@ -6,13 +6,12 @@ import ProfileStatus from "./ProfileStatus";
 import { useState } from "react";
 import ProfilePhotoChangeBar from "./ProfilePhotoChangeBar";
 import ProfileAboutMe from "./ProfileAboutMe";
+import EditProfileAboutMe from "./EditProfileAboutMe";
 
 const ProfileInfo = (props) => {
 
     let currentUserId = props.currentUserId ? props.currentUserId : props.myId
     let [editMode, setEditMode] = useState(false)
-
-
 
     return (
         props.isFetching ?
@@ -54,10 +53,19 @@ const ProfileInfo = (props) => {
 
                     </span>
 
-                    {
-                        editMode ?
-                            <ProfileAboutMe userProfile={props.userProfile} />
-                    }
+                    <span>
+                        {
+                            editMode ?
+                                <EditProfileAboutMe
+                                    changeAboutMeInfo={props.changeAboutMeInfo}
+                                    setEditMode={setEditMode}
+                                    aboutMeLoading={props.aboutMeLoading}
+                                    aboutMeError={props.aboutMeError}
+                                />
+                                :
+                                <ProfileAboutMe setEditMode={setEditMode} userProfile={props.userProfile} />
+                        }
+                    </span>
 
 
                 </span>

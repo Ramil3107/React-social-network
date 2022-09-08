@@ -9,6 +9,9 @@ const Profile = (props) => {
     return (
         <div className={s.content}>
             <ProfileInfo
+                aboutMeLoading={props.aboutMeLoading}
+                aboutMeError={props.aboutMeError}
+                changeAboutMeInfo={props.changeAboutMeInfo}
                 isOwner={props.isOwner}
                 photoLoading={props.photoLoading}
                 photoUploadError={props.photoUploadError}

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getUserProfile, getUserStatus, updateUserStatus, uploadPhotoThunk } from "../../redux/profileReducer";
+import { getUserProfile, getUserStatus, saveAboutMeInfoThunk, updateUserStatus, uploadPhotoThunk } from "../../redux/profileReducer";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Profile from "./Profile";
 import { compose } from "redux";
@@ -12,6 +12,10 @@ import { withRouter } from "../common/withRouter";
 
 
 class ProfileContainer extends React.Component {
+
+    changeAboutMeInfo = (data, setEditMode, id = this.props.myId) => {
+        this.props.saveAboutMeInfoThunk(data, setEditMode, id)
+    }
 
     refreshProfile = () => {
         let userId = this.props.router.params.userId ? this.props.router.params.userId : this.props.myId
@@ -45,6 +49,7 @@ class ProfileContainer extends React.Component {
         if (userId) {
             return <Profile
                 {...this.props}
+                changeAboutMeInfo={this.changeAboutMeInfo}
                 isOwner={!this.props.router.params.userId || this.props.router.params.userId == this.props.myId}
                 onUpdateUserStatus={this.onUpdateUserStatus}
                 uploadPhotoHandler={this.uploadPhotoHandler}
@@ -63,10 +68,12 @@ let mapStateToProps = (state) => ({
     photoUploadError: state.profile.photoUploadError,
     isAuth: state.auth.isAuth,
     myId: state.auth.id,
+    aboutMeLoading: state.profile.aboutMeLoading,
+    aboutMeError: state.profile.aboutMeError,
 })
 
 
 export default compose(
     withAuthRedirect,
     withRouter,
-    connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus, uploadPhotoThunk }))(ProfileContainer)
+    connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus, uploadPhotoThunk, saveAboutMeInfoThunk }))(ProfileContainer)
