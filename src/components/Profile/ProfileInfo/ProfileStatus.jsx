@@ -17,7 +17,7 @@ const ProfileStatus = ({ userStatus, onUpdateUserStatus}) => {
 
 
     return (
-        <div >
+        <div className={s.statusBar}>
             {!editMode ?
                 <div>
                     <span

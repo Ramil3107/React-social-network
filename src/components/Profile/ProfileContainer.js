@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getUserProfile, getUserStatus, updateUserStatus } from "../../redux/profileReducer";
+import { getUserProfile, getUserStatus, updateUserStatus, uploadPhotoThunk } from "../../redux/profileReducer";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Profile from "./Profile";
 import { compose } from "redux";
@@ -13,10 +13,14 @@ import { withRouter } from "../common/withRouter";
 
 class ProfileContainer extends React.Component {
 
-    refreshProfile() {
+    refreshProfile = () => {
         let userId = this.props.router.params.userId ? this.props.router.params.userId : this.props.myId
         this.props.getUserProfile(userId)
         this.props.getUserStatus(userId)
+    }
+
+    uploadPhotoHandler = (photo) => {
+        this.props.uploadPhotoThunk(photo)
     }
 
     componentDidMount() {
@@ -42,6 +46,7 @@ class ProfileContainer extends React.Component {
             return <Profile
                 {...this.props}
                 onUpdateUserStatus={this.onUpdateUserStatus}
+                uploadPhotoHandler={this.uploadPhotoHandler}
             />
         }
 
@@ -53,12 +58,14 @@ let mapStateToProps = (state) => ({
     userProfile: state.profile.userProfile,
     isFetching: state.profile.isFetching,
     userStatus: state.profile.userStatus,
+    photoLoading: state.profile.photoLoading,
+    photoUploadError: state.profile.photoUploadError,
     isAuth: state.auth.isAuth,
-    myId: state.auth.id
+    myId: state.auth.id,
 })
 
 
 export default compose(
     withAuthRedirect,
     withRouter,
-    connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus }))(ProfileContainer)
+    connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus, uploadPhotoThunk }))(ProfileContainer)

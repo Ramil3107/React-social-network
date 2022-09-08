@@ -42,7 +42,7 @@ const Navigation = () => {
         <nav className={s.nav}>
             {
                 navItems.map(item => {
-                    return <div className={s.item}>
+                    return <div key={item.name} className={s.item}>
                         <NavLink to={item.path} className={({ isActive }) => (isActive ? [s.active] : [])}>{item.name}</NavLink>
                     </div>
                 })

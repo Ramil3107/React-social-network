@@ -4,6 +4,9 @@ const ADD_POST = "ADD-POST"
 const SET_USER_PROFILE = "SET_USER_PROFILE"
 const SET_TOGGLE_IS_FETCHING = "SET_TOGGLE_IS_FETCHING"
 const SET_USER_STATUS = "SET_USER_STATUS"
+const UPDATE_USER_PHOTOS = "UPDATE_USER_PHOTOS"
+const SET_PHOTO_IS_LOADING = "SET_PHOTO_IS_LOADING"
+const SET_PHOTO_UPLOAD_ERROR = "SET_PHOTO_UPLOAD_ERROR"
 
 let initialState = {
     posts: [
@@ -14,6 +17,8 @@ let initialState = {
     ],
     userProfile: null,
     isFetching: true,
+    photoLoading: false,
+    photoUploadError: null,
     userStatus: ""
 }
 
@@ -34,10 +39,24 @@ let profileReducer = (state = initialState, action) => {
                 ...state,
                 isFetching: action.status
             }
+        case SET_PHOTO_IS_LOADING:
+            return {
+                ...state,
+                photoLoading: action.status
+            }
         case SET_USER_STATUS:
             return {
                 ...state,
                 userStatus: action.status
+            }
+        case UPDATE_USER_PHOTOS:
+            return {
+                ...state, userProfile: { ...state.userProfile, photos: action.photos }
+            }
+        case SET_PHOTO_UPLOAD_ERROR:
+            return {
+                ...state,
+                photoUploadError: action.status
             }
         default:
             return state
@@ -50,7 +69,9 @@ export const addPostActionCreator = (newPost) => ({ type: ADD_POST, newPost })
 export const setUserProfile = (userProfile) => ({ type: SET_USER_PROFILE, userProfile })
 export const toggleIsFetching = (status) => ({ type: SET_TOGGLE_IS_FETCHING, status })
 export const setUserStatus = (status) => ({ type: SET_USER_STATUS, status })
-
+export const updateUserPhotos = (photos) => ({ type: UPDATE_USER_PHOTOS, photos })
+export const toggleIsPhotoLoading = (status) => ({ type: SET_PHOTO_IS_LOADING, status })
+export const setPhotoUploadError = (error) => ({ type: SET_PHOTO_UPLOAD_ERROR, error })
 // Thunks:
 
 export const getUserProfile = (userId) => async (dispatch) => {
@@ -70,6 +91,18 @@ export const updateUserStatus = (status) => async (dispatch) => {
     if (data.resultCode === 0) {
         dispatch(setUserStatus(status))
     }
+}
+
+export const uploadPhotoThunk = (photo) => async (dispatch) => {
+    dispatch(toggleIsPhotoLoading(true))
+    let data = await profileAPI.uploadPhoto(photo)
+    if (data.resultCode === 0) {
+        dispatch(updateUserPhotos((data.data.photos)))
+        dispatch(setPhotoUploadError(null))
+    } else {
+        dispatch(setPhotoUploadError("Opps, something went wrong! Refresh page and try again!"))
+    }
+    dispatch(toggleIsPhotoLoading(false))
 }
 
 export default profileReducer

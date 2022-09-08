@@ -14,18 +14,27 @@ p {
 }
 
 .userAvatar img{
-    width: 80%;
-    height: 80%;
+    width: 300px;
+    height: 300px;
 }
 
 .status {
-    border: 3px grey solid;
+    border: 1px grey solid;
+    border-radius: 5px;
     max-width: max-content;
-    margin-top: 10px;
+    padding: 3px;
 }
 
 .steer {
     color: grey;
     font-size:small;
-    margin-top: 5px;
+    margin-top: 10px;
+}
+
+.changeAvatar {
+    margin-bottom: 20px;
+}
+
+.statusBar {
+    padding-bottom: 15px;
 }

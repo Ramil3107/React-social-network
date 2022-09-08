@@ -9,14 +9,17 @@ const Profile = (props) => {
     return (
         <div className={s.content}>
             <ProfileInfo
-            currentUserId={props.router.params.userId}
-            myId={props.myId}
-            onUpdateUserStatus={props.onUpdateUserStatus}
-            userProfile={props.userProfile} 
-            isFetching={props.isFetching}
-            userStatus={props.userStatus}
+                photoLoading={props.photoLoading}
+                photoUploadError={props.photoUploadError}
+                uploadPhotoHandler={props.uploadPhotoHandler}
+                currentUserId={props.router.params.userId}
+                myId={props.myId}
+                onUpdateUserStatus={props.onUpdateUserStatus}
+                userProfile={props.userProfile}
+                isFetching={props.isFetching}
+                userStatus={props.userStatus}
             />
-            <MyPostsContainer/>
+            <MyPostsContainer />
         </div>
     )
 }

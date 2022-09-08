@@ -6,7 +6,6 @@ import s from "./FindUsers.module.css"
 const Pagination = ({ usersTotalCount, pageUsersLimit, onPageChanged, currentPage, portionSize = 20 }) => {
 
     let pagesCount = Math.ceil(usersTotalCount / pageUsersLimit)
-    console.log(pagesCount)
     let pages = []
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)

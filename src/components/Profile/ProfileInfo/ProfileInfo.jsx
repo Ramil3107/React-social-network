@@ -3,10 +3,12 @@ import s from "./ProfileInfo.module.css";
 import avatarDefault from "../../../assets/images/defaultAvatar.jpeg"
 import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatus from "./ProfileStatus";
+import { useState } from "react";
 
 const ProfileInfo = (props) => {
 
     let currentUserId = props.currentUserId ? props.currentUserId : props.myId
+    let [photo, setPhoto] = useState(null)
 
     return (
         props.isFetching ?
@@ -23,7 +25,21 @@ const ProfileInfo = (props) => {
                         <img src={props.userProfile.photos.large === null ?
                             avatarDefault :
                             props.userProfile.photos.large}
-                            alt="avatar" />
+                            alt="avatar"
+                        />
+                        <div style={{marginTop:"10px"}}>
+                            {
+                                props.photoLoading ?
+                                    <Preloader />
+                                    :
+                                    <div className={s.changeAvatar}>
+                                        <input onChange={(e) => setPhoto(e.target.files[0])} type="file" />
+                                        <button disabled={!photo} onClick={() => props.uploadPhotoHandler(photo)}>Upload</button>
+                                        <p>{props.photoUploadError ? props.photoUploadError : null}</p>
+                                    </div>
+                            }
+                        </div>
+
                         {
                             currentUserId != props.myId ?
                                 <p>{props.userStatus ? props.userStatus : "No Status"}</p>
