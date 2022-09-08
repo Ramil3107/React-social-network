@@ -3,7 +3,7 @@ import s from "./ProfileInfo.module.css";
 
 
 
-const ProfileAboutMe = ({ userProfile, setEditMode}) => {
+const ProfileAboutMe = ({ userProfile, setEditMode, isOwner }) => {
     return (
         <span className={s.info}>
             <p>
@@ -20,7 +20,12 @@ const ProfileAboutMe = ({ userProfile, setEditMode}) => {
                     :
                     null
             }
-            <button onClick={() => setEditMode(true)}>Edit</button>
+            {
+                isOwner ?
+                    <button onClick={() => setEditMode(true)}>Edit</button>
+                    :
+                    null
+            }
         </span>
     )
 }

@@ -25,11 +25,20 @@ const ProfileInfo = (props) => {
                 <span className={s.userInfo}>
 
                     <span className={s.userAvatar}>
-                        <img src={props.userProfile.photos.large === null ?
-                            avatarDefault :
-                            props.userProfile.photos.large}
-                            alt="avatar"
-                        />
+
+                        {
+                            props.photoLoading ?
+                                <Preloader />
+                                :
+                                <img
+                                    style={{ width: "300px", height: "300px" }}
+                                    src={props.userProfile.photos.large === null ?
+                                        avatarDefault :
+                                        props.userProfile.photos.large}
+                                    alt="avatar"
+                                />
+                        }
+
                         {
                             props.isOwner ?
                                 <ProfilePhotoChangeBar
@@ -54,16 +63,16 @@ const ProfileInfo = (props) => {
                     </span>
 
                     <span>
-                        {
-                            editMode ?
-                                <EditProfileAboutMe
-                                    changeAboutMeInfo={props.changeAboutMeInfo}
-                                    setEditMode={setEditMode}
-                                    aboutMeLoading={props.aboutMeLoading}
-                                    aboutMeError={props.aboutMeError}
-                                />
-                                :
-                                <ProfileAboutMe setEditMode={setEditMode} userProfile={props.userProfile} />
+
+                        {editMode ?
+                            <EditProfileAboutMe
+                                changeAboutMeInfo={props.changeAboutMeInfo}
+                                setEditMode={setEditMode}
+                                aboutMeLoading={props.aboutMeLoading}
+                                aboutMeError={props.aboutMeError}
+                            />
+                            :
+                            <ProfileAboutMe isOwner={props.isOwner} setEditMode={setEditMode} userProfile={props.userProfile} />
                         }
                     </span>
 
