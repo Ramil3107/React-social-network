@@ -33,13 +33,12 @@ const Users = ({ users, onFollow, onUnfollow, isFollowInProgress }) => {
             </span>
 
             <span className={s.userInfo}>
-                <p>user name: {user.name}</p>
-                <p>{user.status === null ? "No status" : user.status}</p>
+                <p><b>Nickname:</b> {user.name}</p>
+                <p style={{color:"#708090"}}>{user.status === null ? null : user.status}</p>
             </span>
 
             <span className={s.userAdress}>
-                <p>{"user.country"}</p>
-                <p>{"user.city"}</p>
+                <p>{user.followed ? "Followed" : "Not Followed"}</p>
             </span>
 
         </ div>
