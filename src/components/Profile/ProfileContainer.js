@@ -45,6 +45,7 @@ class ProfileContainer extends React.Component {
         if (userId) {
             return <Profile
                 {...this.props}
+                isOwner={!this.props.router.params.userId || this.props.router.params.userId == this.props.myId}
                 onUpdateUserStatus={this.onUpdateUserStatus}
                 uploadPhotoHandler={this.uploadPhotoHandler}
             />

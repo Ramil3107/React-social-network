@@ -27,12 +27,17 @@ const ProfileInfo = (props) => {
                             props.userProfile.photos.large}
                             alt="avatar"
                         />
+                        {
+                            props.isOwner ?
+                                <ProfilePhotoChangeBar
+                                    uploadPhotoHandler={props.uploadPhotoHandler}
+                                    photoUploadError={props.photoUploadError}
+                                    photoLoading={props.photoLoading}
+                                />
+                                :
+                                null
+                        }
 
-                        <ProfilePhotoChangeBar
-                            uploadPhotoHandler={props.uploadPhotoHandler}
-                            photoUploadError={props.photoUploadError}
-                            photoLoading = {props.photoLoading}
-                        />
 
                         {
                             currentUserId != props.myId ?

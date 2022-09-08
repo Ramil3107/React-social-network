@@ -9,6 +9,7 @@ const Profile = (props) => {
     return (
         <div className={s.content}>
             <ProfileInfo
+                isOwner={props.isOwner}
                 photoLoading={props.photoLoading}
                 photoUploadError={props.photoUploadError}
                 uploadPhotoHandler={props.uploadPhotoHandler}
