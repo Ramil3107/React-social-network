@@ -13,11 +13,20 @@ import { withRouter } from "../common/withRouter";
 
 class ProfileContainer extends React.Component {
 
-
-    componentDidMount() {
+    refreshProfile() {
         let userId = this.props.router.params.userId ? this.props.router.params.userId : this.props.myId
         this.props.getUserProfile(userId)
         this.props.getUserStatus(userId)
+    }
+
+    componentDidMount() {
+        this.refreshProfile()
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.router.params.userId != prevProps.router.params.userId) {
+            this.refreshProfile()
+        }
     }
 
     onUpdateUserStatus = (status) => {
