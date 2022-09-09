@@ -6,12 +6,11 @@ import SignInForm from "./SingInForm"
 
 const Login = ({ signInUser, logoutUser }) => {
 
-    const isAuth = useSelector(state => state.auth.isAuth)
-    const login = useSelector(state => state.auth.login)
+    const { isAuth, login, captcha } = useSelector(state => state.auth)
 
 
-    const signIn = (email, password, rememberMe) => {
-        signInUser(email, password, rememberMe)
+    const signIn = (email, password, rememberMe, captcha = null) => {
+        signInUser(email, password, rememberMe, captcha)
     }
 
     const logout = () => {
@@ -31,7 +30,7 @@ const Login = ({ signInUser, logoutUser }) => {
 
             <div>
                 <h1 >Sign In Form</h1>
-                <SignInForm signIn={signIn} />
+                <SignInForm captcha={captcha} signIn={signIn} />
             </div>
     )
 }

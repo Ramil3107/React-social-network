@@ -4,13 +4,13 @@ import styles from "./Login.module.css"
 
 
 
-const SignInForm = ({ signIn }) => {
+const SignInForm = ({ signIn, captcha }) => {
 
     const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm({ mode: "onBlur" })
 
     const onSubmit = (data) => {
-        let { email, password, rememberMe } = data
-        signIn(email, password, rememberMe)
+        let { email, password, rememberMe, captcha } = data
+        signIn(email, password, rememberMe, captcha)
         reset()
     }
 
@@ -76,6 +76,23 @@ const SignInForm = ({ signIn }) => {
                 <input
                     type="submit"
                     disabled={!isValid} />
+
+                {
+                    captcha ?
+                        <div>
+                            <img src={captcha} />
+                            <input
+                                placeholder="Enter symbols from image"
+                                type="text"
+                                {...register("captcha", {
+                                    required: "Field is required!",
+                                })}
+                            />
+                            {errors?.password?.captcha ? errors.password.captcha : null}
+                        </div>
+                        :
+                        null
+                }
             </form>
         </div>
     )
