@@ -37,7 +37,7 @@ const App = (props) => {
             <Navigation />
           </div>
           {
-            props.initialized ? (<div id='content' className='item'>
+            props.isAuth ? (<div id='content' className='item'>
               <Suspense fallback={<Preloader />}>
                 <Routes>
                   <Route path='/' element={<ProfileContainer />} />
@@ -67,7 +67,8 @@ const App = (props) => {
 }
 
 let mapStateToProps = (state) => ({
-  initialized: state.app.initialized
+  initialized: state.app.initialized,
+  isAuth: state.auth.isAuth
 })
 
 
