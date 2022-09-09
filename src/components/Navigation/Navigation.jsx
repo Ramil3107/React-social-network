@@ -21,18 +21,6 @@ const Navigation = () => {
             name: "Find Users"
         },
         {
-            path: "/news",
-            name: "News"
-        },
-        {
-            path: "/music",
-            name: "Music"
-        },
-        {
-            path: "settings",
-            name: "Settings"
-        },
-        {
             path: "login",
             name: isAuth ? "Logout" : "Login"
         },
