@@ -41,29 +41,33 @@ const Dialog = ({ stateMessages, addMessage }) => {
 
 
     return (
-        <div className={s.dialogs}>
+        <>
+            <h1>Attention! Useless page! </h1>
+            <p style={{textAlign:"center"}}>I save this page for "WebSocket Chat" lessons.</p>
+            <div className={s.dialogs}>
 
-            <div className={s.dialog}>
-                {dialogEl}
+                <div className={s.dialog}>
+                    {dialogEl}
+                </div>
+
+                <div className={s.messages}>
+                    {messageEl}
+                </div>
+
+                <div className={s.textarea}>
+
+                    <form onSubmit={handleSubmit((data) => onAddMessage(data.message))}>
+                        <textarea
+                            {...register("message")}
+                            cols="30"
+                            rows="5"
+                        />
+                        <button type="submit">Send</button>
+                    </form>
+
+                </div>
             </div>
-
-            <div className={s.messages}>
-                {messageEl}
-            </div>
-
-            <div className={s.textarea}>
-
-                <form onSubmit={handleSubmit((data) => onAddMessage(data.message))}>
-                    <textarea
-                        {...register("message")}
-                        cols="30"
-                        rows="5"
-                    />
-                    <button type="submit">Send</button>
-                </form>
-
-            </div>
-        </div>
+        </>
     )
 }
 
