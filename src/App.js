@@ -40,7 +40,7 @@ const App = (props) => {
             props.initialized ? (<div id='content' className='item'>
               <Suspense fallback={<Preloader />}>
                 <Routes>
-
+                  <Route path='/' element={<ProfileContainer />} />
                   <Route path='/profile/' element={<ProfileContainer />} >
                     <Route path=':userId' element={<ProfileContainer />} />
                   </Route>
