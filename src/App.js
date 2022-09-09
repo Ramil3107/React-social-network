@@ -33,33 +33,34 @@ const App = (props) => {
             <HeaderContainer />
           </div>
 
-          <div id='navbar' className='item'>
-            <Navigation />
+          <div className='contentWrapper'>
+            <div id='navbar' className='item'>
+              <Navigation />
+            </div>
+            {
+              props.isAuth ? (<div id='content' className='item'>
+                <Suspense fallback={<Preloader />}>
+                  <Routes>
+                    <Route path='/' element={<Navigate to="/profile" />} />
+                    <Route path='/profile/' element={<ProfileContainer />} >
+                      <Route path=':userId' element={<ProfileContainer />} />
+                    </Route>
+
+                    <Route path="/dialog/" element={<DialogContainer />} />
+
+                    <Route path="/users" element={<FindUsersContainer />} />
+
+                    <Route path="/login" element={<Login />} />
+
+                  </Routes>
+                </Suspense>
+              </div>)
+                :
+                <div id='content'>
+                  <Login />
+                </div>
+            }
           </div>
-          {
-            props.isAuth ? (<div id='content' className='item'>
-              <Suspense fallback={<Preloader />}>
-                <Routes>
-                  <Route path='/' element={<Navigate to="/profile" />} />
-                  <Route path='/profile/' element={<ProfileContainer />} >
-                    <Route path=':userId' element={<ProfileContainer />} />
-                  </Route>
-
-                  <Route path="/dialog/" element={<DialogContainer />} />
-
-                  <Route path="/users" element={<FindUsersContainer />} />
-
-                  <Route path="/login" element={<Login />} />
-
-                </Routes>
-              </Suspense>
-            </div>)
-              :
-              <div id='content'>
-              <Login />
-              </div>
-          }
-
 
         </div>
       </div>

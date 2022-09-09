@@ -7,7 +7,7 @@ import SignInForm from "./SingInForm"
 
 const Login = ({ signInUser, logoutUser }) => {
 
-    const { isAuth, login, captcha, loading } = useSelector(state => state.auth)
+    const { isAuth, login, captcha, loading, email, id} = useSelector(state => state.auth)
     const navigate = useNavigate()
 
 
@@ -22,10 +22,11 @@ const Login = ({ signInUser, logoutUser }) => {
 
     return (
         isAuth ?
-            <div>
-                <h1 >Welcome {login}</h1>
-                Current User: {login}
-                <div>
+            <div style={{marginLeft:"10px"}}>
+                <h1>Welcome, <b style={{ color: "green" }}>{email}</b></h1>
+                <b>USER ID:</b> <b style={{ color: "green" }}>{id}</b><br/>
+                <b>USER EMAIL:</b> <b style={{ color: "green" }}>{email}</b>
+                <div style={{marginTop:"10px"}}>
                     <button onClick={logout}>Logout</button>
                 </div>
             </div>
