@@ -3,6 +3,7 @@ h1 {
 }
 .formContainer form {
     text-align: left;
+    margin-left: 5px;
 }
 
 form div {

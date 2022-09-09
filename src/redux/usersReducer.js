@@ -99,47 +99,67 @@ export const toggleIsFollowInProgress = (inProgress, userId) => ({ type: TOGGLE_
 // Thunks:
 
 export const getUsers = (currentPage, pageUsersLimit) => async (dispatch) => {
-    dispatch(toggleIsFetching(true))
-    let data = await usersAPI.getUsers(currentPage, pageUsersLimit)
-    dispatch(toggleIsFetching(false))
-    dispatch(setUsers(data.items))
-    dispatch(setTotalCount(data.totalCount))
+    try {
+        dispatch(toggleIsFetching(true))
+        let data = await usersAPI.getUsers(currentPage, pageUsersLimit)
+        dispatch(toggleIsFetching(false))
+        dispatch(setUsers(data.items))
+        dispatch(setTotalCount(data.totalCount))
+    } catch (error) {
+        alert(error)
+    }
 }
 
 export const changePage = (page, pageUsersLimit) => async (dispatch) => {
-    dispatch(setPage(page))
-    dispatch(toggleIsFetching(true))
-    let data = await usersAPI.getPageUsers(page, pageUsersLimit)
-    dispatch(toggleIsFetching(false))
-    dispatch(setUsers(data.items))
+    try {
+        dispatch(setPage(page))
+        dispatch(toggleIsFetching(true))
+        let data = await usersAPI.getPageUsers(page, pageUsersLimit)
+        dispatch(toggleIsFetching(false))
+        dispatch(setUsers(data.items))
+    } catch (error) {
+        alert(error)
+    }
 }
 
 export const searchUser = (findUserName) => async (dispatch) => {
-    dispatch(toggleIsFetching(true))
-    let data = await usersAPI.getUser(findUserName)
-    dispatch(toggleIsFetching(false))
-    dispatch(setUsers(data.items))
-    if (findUserName === "") {
-        dispatch(setPage(1))
+    try {
+        dispatch(toggleIsFetching(true))
+        let data = await usersAPI.getUser(findUserName)
+        dispatch(toggleIsFetching(false))
+        dispatch(setUsers(data.items))
+        if (findUserName === "") {
+            dispatch(setPage(1))
+        }
+    } catch (error) {
+        alert(error)
     }
 }
 
 export const follow = (userId) => async (dispatch) => {
-    dispatch(toggleIsFollowInProgress(true, userId))
-    let data = await usersAPI.followUser(userId)
-    if (data.resultCode == 0) {
-        dispatch(followAC(userId))
+    try {
+        dispatch(toggleIsFollowInProgress(true, userId))
+        let data = await usersAPI.followUser(userId)
+        if (data.resultCode == 0) {
+            dispatch(followAC(userId))
+        }
+        dispatch(toggleIsFollowInProgress(false, userId))
+    } catch (error) {
+        alert(error)
     }
-    dispatch(toggleIsFollowInProgress(false, userId))
 }
 
 export const unfollow = (userId) => async (dispatch) => {
-    dispatch(toggleIsFollowInProgress(true, userId))
-    let data = await usersAPI.unfollowUser(userId)
-    if (data.resultCode == 0) {
-        dispatch(unfollowAC(userId))
+    try {
+        dispatch(toggleIsFollowInProgress(true, userId))
+        let data = await usersAPI.unfollowUser(userId)
+        if (data.resultCode == 0) {
+            dispatch(unfollowAC(userId))
+        }
+        dispatch(toggleIsFollowInProgress(false, userId))
+    } catch (error) {
+        alert(error)
     }
-    dispatch(toggleIsFollowInProgress(false, userId))
 }
 
 export default usersReducer

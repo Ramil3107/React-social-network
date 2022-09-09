@@ -94,47 +94,67 @@ export const setAboutMeError = (error) => ({ type: SET_ABOUT_ME_ERROR, error })
 // Thunks:
 
 export const getUserProfile = (userId) => async (dispatch) => {
-    dispatch(toggleIsFetching(true))
-    let data = await profileAPI.getUserData(userId)
-    dispatch(setUserProfile(data))
-    dispatch(toggleIsFetching(false))
+    try {
+        dispatch(toggleIsFetching(true))
+        let data = await profileAPI.getUserData(userId)
+        dispatch(setUserProfile(data))
+        dispatch(toggleIsFetching(false))
+    } catch (error) {
+        alert(error)
+    }
 }
 
 export const getUserStatus = (userId) => async (dispatch) => {
-    let data = await profileAPI.getUserStatus(userId)
-    dispatch(setUserStatus(data))
+    try {
+        let data = await profileAPI.getUserStatus(userId)
+        dispatch(setUserStatus(data))
+    } catch (error) {
+        alert(error)
+    }
 }
 
 export const updateUserStatus = (status) => async (dispatch) => {
-    let data = await profileAPI.updateUserStatus(status)
-    if (data.resultCode === 0) {
-        dispatch(setUserStatus(status))
+    try {
+        let data = await profileAPI.updateUserStatus(status)
+        if (data.resultCode === 0) {
+            dispatch(setUserStatus(status))
+        }
+    } catch (error) {
+        alert(error)
     }
 }
 
 export const uploadPhotoThunk = (photo) => async (dispatch) => {
-    dispatch(toggleIsPhotoLoading(true))
-    let data = await profileAPI.uploadPhoto(photo)
-    if (data.resultCode === 0) {
-        dispatch(updateUserPhotos((data.data.photos)))
-        dispatch(setPhotoUploadError(null))
-    } else {
-        dispatch(setPhotoUploadError("Opps, something went wrong! Refresh page and try again!"))
+    try {
+        dispatch(toggleIsPhotoLoading(true))
+        let data = await profileAPI.uploadPhoto(photo)
+        if (data.resultCode === 0) {
+            dispatch(updateUserPhotos((data.data.photos)))
+            dispatch(setPhotoUploadError(null))
+        } else {
+            dispatch(setPhotoUploadError("Opps, something went wrong! Refresh page and try again!"))
+        }
+        dispatch(toggleIsPhotoLoading(false))
+    } catch (error) {
+        alert(error)
     }
-    dispatch(toggleIsPhotoLoading(false))
 }
 
 export const saveAboutMeInfoThunk = (uploadData, setEditMode, id) => async (dispatch) => {
-    dispatch(setAboutMeLoader(true))
-    let data = await profileAPI.uloadAboutMe(uploadData)
-    if (data.resultCode === 0) {
-        setAboutMeError(null)
-        dispatch(getUserProfile(id))
-        setEditMode(false)
-    } else {
-        setAboutMeError("Opps, something went wrong! Refresh page and try again!")
+    try {
+        dispatch(setAboutMeLoader(true))
+        let data = await profileAPI.uloadAboutMe(uploadData)
+        if (data.resultCode === 0) {
+            setAboutMeError(null)
+            dispatch(getUserProfile(id))
+            setEditMode(false)
+        } else {
+            setAboutMeError("Opps, something went wrong! Refresh page and try again!")
+        }
+        dispatch(setAboutMeLoader(false))
+    } catch (error) {
+        alert(error)
     }
-    dispatch(setAboutMeLoader(false))
 }
 
 export default profileReducer

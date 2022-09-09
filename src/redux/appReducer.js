@@ -27,12 +27,16 @@ export const setInitialize = () => ({ type: SET_INITIALIZE })
 // Thunks:
 
 export const initializeApp = () => async (dispatch) => {
-    let data = await authAPI.getAuthUserData()
+    try {
+        let data = await authAPI.getAuthUserData()
 
-    if (data.resultCode == 0) {
-        let { id, login, email } = data.data
-        dispatch(setAuthUserData(id, login, email))
-        dispatch(setInitialize())
+        if (data.resultCode == 0) {
+            let { id, login, email } = data.data
+            dispatch(setAuthUserData(id, login, email))
+            dispatch(setInitialize())
+        }
+    } catch (error) {
+        alert(error)
     }
 }
 

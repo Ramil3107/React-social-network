@@ -1,6 +1,6 @@
 import './App.css';
 import Navigation from './components/Navigation/Navigation';
-import { Route, Routes, } from 'react-router-dom';
+import { Navigate, Route, Routes, } from 'react-router-dom';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
 import { connect } from 'react-redux';
@@ -40,7 +40,7 @@ const App = (props) => {
             props.isAuth ? (<div id='content' className='item'>
               <Suspense fallback={<Preloader />}>
                 <Routes>
-                  <Route path='/' element={<ProfileContainer />} />
+                  <Route path='/' element={<Navigate to="/profile" />} />
                   <Route path='/profile/' element={<ProfileContainer />} >
                     <Route path=':userId' element={<ProfileContainer />} />
                   </Route>
@@ -55,7 +55,9 @@ const App = (props) => {
               </Suspense>
             </div>)
               :
-              (<Login />)
+              <div id='content'>
+              <Login />
+              </div>
           }
 
 
