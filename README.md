@@ -1,4 +1,4 @@
-## Attention! The back-end is provided by author from Belarus. 
+
 ## Please use VPN when visiting the website! Thanks!
 
 ### Access:
